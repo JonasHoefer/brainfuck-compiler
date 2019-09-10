@@ -33,12 +33,14 @@ singletonTape x = Tape [] x []
 modifyCurrent :: Tape a -> (a -> a) -> Tape a
 modifyCurrent (Tape xs c ys) f = Tape xs (f c) ys
 
+setCurrent :: Tape a -> a -> Tape a
+setCurrent (Tape xs _ ys) c = Tape xs c ys
+
 decrCurrent :: Tape Integer -> Tape Integer
-decrCurrent t = modifyCurrent t (\x -> x - 1)
+decrCurrent t = modifyCurrent t (\x -> mod (x - 1) 256)
 
 incrCurrent :: Tape Integer -> Tape Integer
-incrCurrent t = modifyCurrent t (+ 1)
-
+incrCurrent t = modifyCurrent t (\x -> mod (x + 1) 256)
 
 
 data IntprState = IntprState (Tape Integer) [Expr]
@@ -56,20 +58,17 @@ runProgram = Interpreter . StateT $ helper
 
 runExpr :: Interpreter String
 runExpr = Interpreter $ StateT $ \case
-  IntprState tape@(Tape _ 0 _) (   Loop es' : es) -> pure ("", IntprState tape es)
-  IntprState tape              es@(Loop es' : _ ) ->
-        runIntpr runProgram (IntprState tape es') >>= \(first, IntprState tape' _) -> runIntpr ((first++) <$> runExpr) (IntprState tape' es)
-
-  IntprState tape (DataIncr : es) -> return ("", IntprState (incrCurrent tape) es)
-  IntprState tape (DataDecr : es) -> return  ("", IntprState (decrCurrent tape) es)
-  IntprState tape (PosIncr : es) -> return  ("", IntprState (goRight tape) es)
-  IntprState tape (PosDecr : es) -> return  ("", IntprState (goLeft tape) es)
-  IntprState tape@(Tape _ c _) (Write : es) -> return (output, IntprState tape es)
-    where output = [chr . fromIntegral $ c]
-
-    {-
-    
-    r = runIntpr runProgram (IntprState tape es')
-    r' = r >>= \(first, IntprState tape' _) -> runIntpr runExpr (IntprState tape' es)
-    r'' = r' >>= \(rest , s'               ) ->   (first ++ rest, s')
-    -}
+  IntprState tape@(Tape _ 0 _) (Loop es' : es) -> pure ("", IntprState tape es)
+  IntprState tape es@(Loop es' : _) ->
+    runIntpr runProgram (IntprState tape es')
+      >>= \(first, IntprState tape' _) ->
+            runIntpr ((first ++) <$> runExpr) (IntprState tape' es)
+  IntprState tape (DataIncr : es) ->
+    pure ("", IntprState (incrCurrent tape) es)
+  IntprState tape (DataDecr : es) ->
+    pure ("", IntprState (decrCurrent tape) es)
+  IntprState tape (PosIncr : es) -> pure ("", IntprState (goRight tape) es)
+  IntprState tape (PosDecr : es) -> pure ("", IntprState (goLeft tape) es)
+  IntprState tape@(Tape _ c _) (Write : es) ->
+    let output = [chr . fromIntegral $ c] in pure (output, IntprState tape es)
+  IntprState tape (Read : es) -> getChar >>= \c -> pure ("", IntprState (setCurrent tape (toInteger . ord $ c)) es)
