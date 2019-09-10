@@ -10,8 +10,8 @@ import System.Console.Haskeline
 process :: String -> IO ()
 process prog =
     let Just (ast, _) = runParser program prog
-        (output, _)   = runIntpr runProgram (IntprState (singletonTape 0) ast)
-    in  print output
+    in  runIntpr runProgram (IntprState (singletonTape 0) ast) >>= putStr . fst
+     
 
 main :: IO ()
 main = runInputT defaultSettings loop
@@ -20,5 +20,5 @@ main = runInputT defaultSettings loop
     input <- getInputLine "ready> "
     case input of
       Nothing -> outputStrLn "Goodbye."
-      Just input -> (liftIO $ process input) >> loop
+      Just input -> liftIO (process input) >> loop
 

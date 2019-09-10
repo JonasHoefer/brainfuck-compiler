@@ -3,7 +3,7 @@
 
 module Interpreter where
 
-import           Data.Function
+import           Data.Functor
 import           Data.Char
 
 import           Control.Applicative
@@ -43,27 +43,33 @@ incrCurrent t = modifyCurrent t (+ 1)
 
 data IntprState = IntprState (Tape Integer) [Expr]
 
-newtype Interpreter a = Interpreter { unInterpreter :: State IntprState a } deriving (Functor, Applicative, Monad)
+newtype Interpreter a = Interpreter { unInterpreter :: StateT IntprState IO a } deriving (Functor, Applicative, Alternative, Monad)
 
-runIntpr :: Interpreter a -> IntprState -> (a, IntprState)
-runIntpr = runState . unInterpreter
+runIntpr :: Interpreter a -> IntprState -> IO (a, IntprState)
+runIntpr = runStateT . unInterpreter
 
 runProgram :: Interpreter String
-runProgram = Interpreter . state $ helper
+runProgram = Interpreter . StateT $ helper
  where
-  helper s@(IntprState _ []) = ("", s)
+  helper s@(IntprState _ []) = pure ("", s)
   helper s                   = runIntpr ((++) <$> runExpr <*> runProgram) s
 
 runExpr :: Interpreter String
-runExpr = Interpreter $ state $ \case
-  IntprState tape@(Tape _ 0 _) (   Loop es' : es) -> ("", IntprState tape es)
-  IntprState tape              es@(Loop es' : _ ) -> (first ++ rest, s')
-   where
-    (first, IntprState tape' _) = runIntpr runProgram (IntprState tape es')
-    (rest , s'                ) = runIntpr runExpr (IntprState tape' es)
-  IntprState tape (DataIncr : es) -> ("", IntprState (incrCurrent tape) es)
-  IntprState tape (DataDecr : es) -> ("", IntprState (decrCurrent tape) es)
-  IntprState tape (PosIncr : es) -> ("", IntprState (goRight tape) es)
-  IntprState tape (PosDecr : es) -> ("", IntprState (goLeft tape) es)
-  IntprState tape@(Tape _ c _) (Write : es) -> (output, IntprState tape es)
+runExpr = Interpreter $ StateT $ \case
+  IntprState tape@(Tape _ 0 _) (   Loop es' : es) -> pure ("", IntprState tape es)
+  IntprState tape              es@(Loop es' : _ ) ->
+        runIntpr runProgram (IntprState tape es') >>= \(first, IntprState tape' _) -> runIntpr ((first++) <$> runExpr) (IntprState tape' es)
+
+  IntprState tape (DataIncr : es) -> return ("", IntprState (incrCurrent tape) es)
+  IntprState tape (DataDecr : es) -> return  ("", IntprState (decrCurrent tape) es)
+  IntprState tape (PosIncr : es) -> return  ("", IntprState (goRight tape) es)
+  IntprState tape (PosDecr : es) -> return  ("", IntprState (goLeft tape) es)
+  IntprState tape@(Tape _ c _) (Write : es) -> return (output, IntprState tape es)
     where output = [chr . fromIntegral $ c]
+
+    {-
+    
+    r = runIntpr runProgram (IntprState tape es')
+    r' = r >>= \(first, IntprState tape' _) -> runIntpr runExpr (IntprState tape' es)
+    r'' = r' >>= \(rest , s'               ) ->   (first ++ rest, s')
+    -}
