@@ -1,8 +1,10 @@
 {
     "cSpell.words": [
         "Codegen",
+        "add",
         "data",
         "decr",
+        "defn",
         "deriving",
         "generalised",
         "haskeline",
