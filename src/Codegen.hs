@@ -62,3 +62,11 @@ external retTypes label argTypes =
         , returnType  = retTypes
         , basicBlocks = []
         }
+
+
+data CodegenState = CodegenState {}
+
+newtype Codegen a = Codegen { runCodegen :: State CodegenState a } deriving (Functor, Applicative, Monad, MonadState CodegenState )
+
+
+
