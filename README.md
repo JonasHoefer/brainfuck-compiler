@@ -4,6 +4,6 @@ A compiler for (Brainfuck)[https://en.wikipedia.org/wiki/Brainfuck] written in (
 
 ## Features
 Currently done features:
-[x] Parser
-[x] Interpreter for testing purposes 
-[ ] llvm ir generation
+- [x] Parser
+- [x] Interpreter for testing purposes 
+- [ ] llvm ir generation
