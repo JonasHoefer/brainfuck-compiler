@@ -45,7 +45,7 @@ incrCurrent :: Tape Integer -> Tape Integer
 incrCurrent t = modifyCurrent t (\x -> mod (x + 1) 256)
 
 
-data IntprState = IntprState (Tape Integer) [Expr]
+data IntprState = IntprState (Tape Integer) [Expr] deriving (Show, Eq)
 
 newtype Interpreter a = Interpreter { unInterpreter :: StateT IntprState IO a } deriving (Functor, Applicative, Alternative, Monad)
 
@@ -73,7 +73,7 @@ runExpr = Interpreter $ StateT $ \case
   IntprState tape (PosDecr : es) -> pure ("", IntprState (goLeft tape) es)
   IntprState tape@(Tape _ c _) (Write : es) ->
     let output = [chr . fromIntegral $ c]
-    in  (print. chr . fromIntegral $ c) >> hFlush stdout >> pure
+    in  (print . chr . fromIntegral $ c) >> hFlush stdout >> pure
           (output, IntprState tape es)
   IntprState tape (Read : es) -> getChar
     >>= \c -> pure ("", IntprState (setCurrent tape (toInteger . ord $ c)) es)

@@ -4,6 +4,7 @@
         "decr",
         "deriving",
         "generalised",
+        "haskeline",
         "intpr",
         "newtype",
         "state"
