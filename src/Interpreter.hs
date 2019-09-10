@@ -3,6 +3,8 @@
 
 module Interpreter where
 
+import           System.IO
+
 import           Data.Functor
 import           Data.Char
 
@@ -70,5 +72,8 @@ runExpr = Interpreter $ StateT $ \case
   IntprState tape (PosIncr : es) -> pure ("", IntprState (goRight tape) es)
   IntprState tape (PosDecr : es) -> pure ("", IntprState (goLeft tape) es)
   IntprState tape@(Tape _ c _) (Write : es) ->
-    let output = [chr . fromIntegral $ c] in pure (output, IntprState tape es)
-  IntprState tape (Read : es) -> getChar >>= \c -> pure ("", IntprState (setCurrent tape (toInteger . ord $ c)) es)
+    let output = [chr . fromIntegral $ c]
+    in  (print. chr . fromIntegral $ c) >> hFlush stdout >> pure
+          (output, IntprState tape es)
+  IntprState tape (Read : es) -> getChar
+    >>= \c -> pure ("", IntprState (setCurrent tape (toInteger . ord $ c)) es)
