@@ -28,18 +28,12 @@ genExprCode :: S.Expr -> Codegen AST.Operand
 genExprCode = undefined
 
 codegenMain :: [S.Expr] -> LLVM ()
-codegenMain _ = define T.void "main" [] blks
-    where blks = createBlocks $ execCodegen $ brainfuckEntry *> brainfuckExit
-
-codegenGetCharRef :: LLVM ()
-codegenGetCharRef = external T.i32 "getChar" []
-
-codegenPutCharRef :: LLVM ()
-codegenPutCharRef = external T.i32 "putChar" [(T.i32, "c")]
+codegenMain exprs = define T.void "main" [] blks
+    where blks = createBlocks $ execCodegen $ brainfuckEntry *> brainfuckExprs exprs *> brainfuckExit
 
 codegen :: AST.Module -> [S.Expr] -> IO AST.Module
 codegen mod exprs =
-    let mainMod = codegenGetCharRef >> codegenPutCharRef >> codegenMain exprs
+    let mainMod = codegenGetCharRef *> codegenPutCharRef *> codegenTape *> codegenMain exprs
         newAst  = runLLVM mod mainMod
     in  printAst newAst >> return newAst
 

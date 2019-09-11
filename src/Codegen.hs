@@ -21,10 +21,11 @@ import           LLVM.AST
 import           LLVM.AST.Global
 import qualified LLVM.AST                      as AST
 
+import qualified LLVM.AST.Type                 as T
 import qualified LLVM.AST.Linkage              as L
 import qualified LLVM.AST.Constant             as C
-import qualified LLVM.AST.Attribute            as A
 import qualified LLVM.AST.CallingConvention    as CC
+import qualified LLVM.AST.Attribute            as A
 import qualified LLVM.AST.FloatingPointPredicate
                                                as FP
 
@@ -63,6 +64,15 @@ external retTypes label argTypes =
         , returnType  = retTypes
         , basicBlocks = []
         }
+
+codegenGetCharRef :: LLVM ()
+codegenGetCharRef = external T.i32 "getChar" []
+
+codegenPutCharRef :: LLVM ()
+codegenPutCharRef = external T.i32 "putChar" [(T.i32, "c")]
+
+codegenTape :: LLVM ()
+codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults { name = Name "tape", LLVM.AST.Global.type' = T.i32 }
 
 
 type Names = Map.Map ShortByteString Int
@@ -131,7 +141,7 @@ terminator trm =
     let putTerm s = s { term = Just trm }
     in  (putTerm <$> current >>= modifyBlock) $> trm
 
--- generates the first basic block in a brainfuck program, which allocates the tape
+-- generates the first basic block in a brainfuck program
 brainfuckEntry :: Codegen ()
 brainfuckEntry = addBlock "entry" $> ()
 
