@@ -7,6 +7,7 @@ import           Syntax
 
 import           Data.Word
 import           Data.String
+import           Data.String.Transform
 import           Data.ByteString.Short
 import           Data.List
 import           Data.Function
@@ -64,9 +65,78 @@ external retTypes label argTypes =
         }
 
 
-data CodegenState = CodegenState {}
+type Names = Map.Map ShortByteString Int
+
+uniqueName :: ShortByteString -> Names -> (ShortByteString, Names)
+uniqueName nm ns = case Map.lookup nm ns of
+    Nothing -> (nm, Map.insert nm 1 ns)
+    Just ix -> (nm <> (toShortByteString . show) ix, Map.insert nm (ix + 1) ns)
+
+
+data CodegenState = CodegenState { currentBlock :: Name, blocks :: Map.Map Name BlockState, blockCount :: Int, names :: Names } deriving (Show)
+
+emptyCodegen :: CodegenState
+emptyCodegen = CodegenState (Name "entry") Map.empty 0 Map.empty
+
+
+data BlockState = BlockState { idx :: Int, stack :: [Named Instruction], term :: Maybe (Named Terminator) } deriving Show
+
+emptyBlock :: Int -> BlockState
+emptyBlock i = BlockState i [] Nothing
+
+sortBlocks :: [(Name, BlockState)] -> [(Name, BlockState)]
+sortBlocks = sortBy (compare `on` (idx . snd))
+
+createBlocks :: CodegenState -> [BasicBlock]
+createBlocks m = map makeBlock $ sortBlocks $ Map.toList (blocks m)
+
+makeBlock :: (Name, BlockState) -> BasicBlock
+makeBlock (l, BlockState _ s t) = BasicBlock l (reverse s) (makeTerm t)
+  where
+    makeTerm (Just x) = x
+    makeTerm Nothing  = error $ "Block has no terminator: " ++ show l
+
 
 newtype Codegen a = Codegen { runCodegen :: State CodegenState a } deriving (Functor, Applicative, Monad, MonadState CodegenState )
 
+execCodegen :: Codegen a -> CodegenState
+execCodegen m = execState (runCodegen m) emptyCodegen
 
+addBlock :: ShortByteString -> Codegen Name
+addBlock bName = Codegen $ state $ \s ->
+    let new             = emptyBlock $ blockCount s
+        (qName, supply) = uniqueName bName (names s)
+        s'              = s { blocks = Map.insert (Name qName) new (blocks s)
+                            , blockCount = 1 + blockCount s
+                            , names = supply
+                            }
+    in  (Name qName, s')
 
+entry :: Codegen Name
+entry = gets currentBlock
+
+current :: Codegen BlockState
+current =
+    let unpack = maybe (error "could not find block!") return
+    in  Map.lookup <$> entry <*> gets blocks >>= unpack
+
+-- replaces the BlockState of the current block
+modifyBlock :: BlockState -> Codegen ()
+modifyBlock new =
+    modify $ \s -> s { blocks = Map.insert (currentBlock s) new (blocks s) }
+
+-- adds a terminator to the current block
+terminator :: Named Terminator -> Codegen (Named Terminator)
+terminator trm =
+    let putTerm s = s { term = Just trm }
+    in  (putTerm <$> current >>= modifyBlock) $> trm
+
+-- generates the first basic block in a brainfuck program, which allocates the tape
+brainfuckEntry :: Codegen ()
+brainfuckEntry = addBlock "entry" $> ()
+
+brainfuckExit :: Codegen ()
+brainfuckExit = terminator (Do $ Ret Nothing []) $> ()
+
+brainfuckExprs :: [Expr] -> Codegen ()
+brainfuckExprs exprs = return ()

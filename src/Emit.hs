@@ -27,8 +27,9 @@ import qualified Syntax                        as S
 genExprCode :: S.Expr -> Codegen AST.Operand
 genExprCode = undefined
 
-codegenMain :: LLVM ()
-codegenMain = define T.void "main" [] []
+codegenMain :: [S.Expr] -> LLVM ()
+codegenMain _ = define T.void "main" [] blks
+    where blks = createBlocks $ execCodegen $ brainfuckEntry *> brainfuckExit
 
 codegenGetCharRef :: LLVM ()
 codegenGetCharRef = external T.i32 "getChar" []
@@ -37,8 +38,8 @@ codegenPutCharRef :: LLVM ()
 codegenPutCharRef = external T.i32 "putChar" [(T.i32, "c")]
 
 codegen :: AST.Module -> [S.Expr] -> IO AST.Module
-codegen mod _ =
-    let mainMod = codegenGetCharRef >> codegenPutCharRef >> codegenMain
+codegen mod exprs =
+    let mainMod = codegenGetCharRef >> codegenPutCharRef >> codegenMain exprs
         newAst  = runLLVM mod mainMod
     in  printAst newAst >> return newAst
 
