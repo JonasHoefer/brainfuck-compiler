@@ -7,6 +7,7 @@
         "decr",
         "defn",
         "deriving",
+        "externf",
         "generalised",
         "haskeline",
         "intpr",

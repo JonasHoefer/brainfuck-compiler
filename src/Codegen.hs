@@ -1,5 +1,6 @@
 {-# LANGUAGE GeneralisedNewtypeDeriving #-}
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TupleSections #-}
 
 module Codegen where
 
@@ -72,7 +73,10 @@ codegenPutCharRef :: LLVM ()
 codegenPutCharRef = external T.i32 "putChar" [(T.i32, "c")]
 
 codegenTape :: LLVM ()
-codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults { name = Name "tape", LLVM.AST.Global.type' = T.i32 }
+codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults
+    { name                  = Name "tape"
+    , LLVM.AST.Global.type' = T.i32
+    }
 
 
 type Names = Map.Map ShortByteString Int
@@ -83,10 +87,10 @@ uniqueName nm ns = case Map.lookup nm ns of
     Just ix -> (nm <> (toShortByteString . show) ix, Map.insert nm (ix + 1) ns)
 
 
-data CodegenState = CodegenState { currentBlock :: Name, blocks :: Map.Map Name BlockState, blockCount :: Int, names :: Names } deriving (Show)
+data CodegenState = CodegenState { currentBlock :: Name, blocks :: Map.Map Name BlockState, blockCount :: Int, count :: Word, names :: Names } deriving (Show)
 
 emptyCodegen :: CodegenState
-emptyCodegen = CodegenState (Name "entry") Map.empty 0 Map.empty
+emptyCodegen = CodegenState (Name "entry") Map.empty 0 0 Map.empty
 
 
 data BlockState = BlockState { idx :: Int, stack :: [Named Instruction], term :: Maybe (Named Terminator) } deriving Show
@@ -141,6 +145,26 @@ terminator trm =
     let putTerm s = s { term = Just trm }
     in  (putTerm <$> current >>= modifyBlock) $> trm
 
+-- creates a new name for an unnamed instruction
+fresh :: Codegen Word
+fresh = modify (\s -> s { count = 1 + count s }) >> gets count
+
+instr :: Instruction -> Codegen Operand
+instr ins =
+    let addInstr blk ref =
+                modifyBlock (blk { stack = (ref := ins) : stack blk })
+        ref = UnName <$> fresh
+    in  join (addInstr <$> current <*> ref) >> (LocalReference T.i32 <$> ref)
+
+toArgs :: [Operand] -> [(Operand, [A.ParameterAttribute])]
+toArgs = map (, [])
+
+call :: Operand -> [Operand] -> Codegen Operand
+call fn args = instr $ Call Nothing CC.C [] (Right fn) (toArgs args) [] []
+
+externf :: Type -> Name -> Operand
+externf t n = ConstantOperand $ C.GlobalReference t n
+
 -- generates the first basic block in a brainfuck program
 brainfuckEntry :: Codegen ()
 brainfuckEntry = addBlock "entry" $> ()
@@ -150,3 +174,12 @@ brainfuckExit = terminator (Do $ Ret Nothing []) $> ()
 
 brainfuckExprs :: [Expr] -> Codegen ()
 brainfuckExprs exprs = return ()
+
+brainfuckExpr :: Expr -> Codegen Operand
+brainfuckExpr Write =
+    let fn = externf T.i32 (AST.Name "putChar")
+        callFn arg = call fn [arg]
+    in  readTape >>= callFn
+
+readTape :: Codegen Operand
+readTape = undefined
