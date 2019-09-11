@@ -23,6 +23,7 @@ import           LLVM.AST.Global
 import           LLVM.AST.AddrSpace
 import qualified LLVM.AST                      as AST
 import qualified LLVM.AST.Type                 as T
+import qualified LLVM.AST.Typed                as T
 import qualified LLVM.AST.Linkage              as L
 import qualified LLVM.AST.Constant             as C
 import qualified LLVM.AST.CallingConvention    as CC
@@ -75,8 +76,15 @@ codegenPutCharRef = external T.i32 "putchar" [(T.i32, "c")]
 codegenTape :: LLVM ()
 codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults
     { name                  = Name "tape"
+    , LLVM.AST.Global.type' = T.ArrayType 512 T.i32
+    }
+
+codegenPointer :: LLVM ()
+codegenPointer = addDefn $ GlobalDefinition $ globalVariableDefaults
+    { name                  = Name "pointer"
     , LLVM.AST.Global.type' = T.i32
     }
+
 
 
 type Names = Map.Map ShortByteString Int
@@ -149,21 +157,37 @@ terminator trm =
 fresh :: Codegen Word
 fresh = modify (\s -> s { count = 1 + count s }) >> gets count
 
-instr :: Instruction -> Codegen Operand
-instr ins =
+externf :: Type -> Name -> Operand
+externf t n = ConstantOperand $ C.GlobalReference t n
+
+-- instructions/statements
+instr :: Instruction -> Type -> Codegen Operand
+instr ins t =
     let addInstr blk ref =
                 modifyBlock (blk { stack = (ref := ins) : stack blk })
         ref = UnName <$> fresh
-    in  join (addInstr <$> current <*> ref) >> (LocalReference T.i32 <$> ref)
+    in  join (addInstr <$> current <*> ref) >> (LocalReference t <$> ref)
+
+statem :: Instruction -> Codegen ()
+statem ins =
+    let addStatement blk = modifyBlock (blk { stack = Do ins : stack blk })
+    in  current >>= addStatement
+
+------
 
 toArgs :: [Operand] -> [(Operand, [A.ParameterAttribute])]
 toArgs = map (, [])
 
-call :: Operand -> [Operand] -> Codegen Operand
-call fn args = instr $ Call Nothing CC.C [] (Right fn) (toArgs args) [] []
+call :: Operand -> Type -> [Operand] -> Codegen Operand
+call fn t args = instr (Call Nothing CC.C [] (Right fn) (toArgs args) [] []) t
 
-externf :: Type -> Name -> Operand
-externf t n = ConstantOperand $ C.GlobalReference t n
+store :: Operand -> Operand -> Codegen ()
+store ptr val = statem $ Store False ptr val Nothing 0 []
+
+load :: Operand -> Codegen Operand
+load ptr =
+    instr (Load False ptr Nothing 0 []) (T.getElementType . T.typeOf $ ptr)
+
 
 -- generates the first basic block in a brainfuck program
 brainfuckEntry :: Codegen ()
@@ -180,8 +204,9 @@ brainfuckExpr Write =
     let fn = externf
             (PointerType (FunctionType T.i32 [T.i32] False) (AddrSpace 0))
             (Name "putchar")
-        callFn arg = call fn [arg]
+        callFn arg = call fn T.i32 [arg]
     in  callFn readTape
 
 readTape :: Operand
 readTape = ConstantOperand $ C.Int 32 69
+

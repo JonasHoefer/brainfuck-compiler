@@ -40,6 +40,7 @@ codegen mod exprs =
                 codegenGetCharRef
                     *> codegenPutCharRef
                     *> codegenTape
+                    *> codegenPointer
                     *> codegenMain exprs
         newAst = runLLVM mod mainMod
     in  printAst newAst >> return newAst

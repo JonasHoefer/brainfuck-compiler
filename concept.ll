@@ -1,7 +1,7 @@
 ; ModuleID = 'brainfuck'
 source_filename = "<string>"
 
-@tape = external global i32
+@tape = external global [512 x i32]
 
 declare i32 @getchar()
 
