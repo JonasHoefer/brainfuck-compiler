@@ -8,6 +8,7 @@
         "defn",
         "deriving",
         "externf",
+        "foldr",
         "generalised",
         "haskeline",
         "intpr",

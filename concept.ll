@@ -1,11 +1,14 @@
 ; ModuleID = 'brainfuck'
 source_filename = "<string>"
 
-declare i32 @getChar()
+@tape = external global i32
 
-declare i32 @putChar(i32)
+declare i32 @getchar()
+
+declare i32 @putchar(i32)
 
 define void @main() {
 entry:
+  %0 = call i32 @putchar(i32 69)
   ret void
 }

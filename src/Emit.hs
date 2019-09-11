@@ -24,17 +24,24 @@ import           Codegen
 import qualified Syntax                        as S
 
 
-genExprCode :: S.Expr -> Codegen AST.Operand
-genExprCode = undefined
-
 codegenMain :: [S.Expr] -> LLVM ()
 codegenMain exprs = define T.void "main" [] blks
-    where blks = createBlocks $ execCodegen $ brainfuckEntry *> brainfuckExprs exprs *> brainfuckExit
+  where
+    blks =
+        createBlocks
+            $  execCodegen
+            $  brainfuckEntry
+            *> brainfuckExprs exprs
+            *> brainfuckExit
 
 codegen :: AST.Module -> [S.Expr] -> IO AST.Module
 codegen mod exprs =
-    let mainMod = codegenGetCharRef *> codegenPutCharRef *> codegenTape *> codegenMain exprs
-        newAst  = runLLVM mod mainMod
+    let mainMod =
+                codegenGetCharRef
+                    *> codegenPutCharRef
+                    *> codegenTape
+                    *> codegenMain exprs
+        newAst = runLLVM mod mainMod
     in  printAst newAst >> return newAst
 
 printAst :: AST.Module -> IO ()

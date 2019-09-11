@@ -20,8 +20,8 @@ import           Control.Applicative
 
 import           LLVM.AST
 import           LLVM.AST.Global
+import           LLVM.AST.AddrSpace
 import qualified LLVM.AST                      as AST
-
 import qualified LLVM.AST.Type                 as T
 import qualified LLVM.AST.Linkage              as L
 import qualified LLVM.AST.Constant             as C
@@ -31,12 +31,12 @@ import qualified LLVM.AST.FloatingPointPredicate
                                                as FP
 
 
-newtype LLVM a = LLVM (State AST.Module a) deriving (Functor, Applicative, Monad, MonadState AST.Module )
+newtype LLVM a = LLVM (State Module a) deriving (Functor, Applicative, Monad, MonadState Module )
 
-runLLVM :: AST.Module -> LLVM a -> AST.Module
+runLLVM :: Module -> LLVM a -> Module
 runLLVM mod (LLVM m) = execState m mod
 
-emptyModule :: ShortByteString -> AST.Module
+emptyModule :: ShortByteString -> Module
 emptyModule label = defaultModule { moduleName = label }
 
 addDefn :: Definition -> LLVM ()
@@ -67,10 +67,10 @@ external retTypes label argTypes =
         }
 
 codegenGetCharRef :: LLVM ()
-codegenGetCharRef = external T.i32 "getChar" []
+codegenGetCharRef = external T.i32 "getchar" []
 
 codegenPutCharRef :: LLVM ()
-codegenPutCharRef = external T.i32 "putChar" [(T.i32, "c")]
+codegenPutCharRef = external T.i32 "putchar" [(T.i32, "c")]
 
 codegenTape :: LLVM ()
 codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults
@@ -173,13 +173,15 @@ brainfuckExit :: Codegen ()
 brainfuckExit = terminator (Do $ Ret Nothing []) $> ()
 
 brainfuckExprs :: [Expr] -> Codegen ()
-brainfuckExprs exprs = return ()
+brainfuckExprs = foldr ((>>) . brainfuckExpr) (return ())
 
 brainfuckExpr :: Expr -> Codegen Operand
 brainfuckExpr Write =
-    let fn = externf T.i32 (AST.Name "putChar")
+    let fn = externf
+            (PointerType (FunctionType T.i32 [T.i32] False) (AddrSpace 0))
+            (Name "putchar")
         callFn arg = call fn [arg]
-    in  readTape >>= callFn
+    in  callFn readTape
 
-readTape :: Codegen Operand
-readTape = undefined
+readTape :: Operand
+readTape = ConstantOperand $ C.Int 32 69

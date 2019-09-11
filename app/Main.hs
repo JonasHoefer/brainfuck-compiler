@@ -17,7 +17,7 @@ process prog =
   in  print (show ast)
         >>  runIntpr runProgram (IntprState (singletonTape 0) ast)
         >>= (putStrLn . fst)
-        >>  codegen (emptyModule "brainfuck") []
+        >>  codegen (emptyModule "brainfuck") ast
 
 main :: IO ()
 main = runInputT defaultSettings loop
