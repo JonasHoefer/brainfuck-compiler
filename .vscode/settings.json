@@ -4,6 +4,7 @@
         "LLVM",
         "add",
         "brainfuck",
+        "cond",
         "data",
         "decr",
         "defn",

@@ -19,6 +19,7 @@ import           Control.Monad.State
 import           Control.Applicative
 
 import           LLVM.AST
+import           LLVM.AST.IntegerPredicate
 import           LLVM.AST.Global
 import           LLVM.AST.AddrSpace
 import qualified LLVM.AST.Type                 as T
@@ -135,6 +136,9 @@ addBlock bName = Codegen $ state $ \s ->
                             }
     in  (Name qName, s')
 
+setBlock :: Name -> Codegen Name
+setBlock bName = modify (\s -> s { currentBlock = bName }) $> bName
+
 entry :: Codegen Name
 entry = gets currentBlock
 
@@ -206,12 +210,6 @@ constI8 :: Integer -> Operand
 constI8 i = ConstantOperand $ C.Int 8 i
 
 -- high level generations
-brainfuckEntry :: Codegen ()
-brainfuckEntry = addBlock "entry" $> ()
-
-brainfuckExit :: Codegen ()
-brainfuckExit = terminator (Do $ Ret Nothing []) $> ()
-
 brainfuckExprs :: [Expr] -> Codegen ()
 brainfuckExprs = foldr ((>>) . brainfuckExpr) (return ())
 
@@ -254,7 +252,47 @@ brainfuckExpr DataDecr = do
     d'  <- sub d (constI8 1)
     store p_d d'
 
+brainfuckExpr (Loop exprs) = do
+    -- create block for the loop and the rest code after the loop in this 'scope'
+    blockCount <- gets blockCount
+    innerBlock <- addBlock $ toShortByteString $ "block" ++ show blockCount
+    outerBlock <- addBlock $ toShortByteString $ "block" ++ show blockCount
+
+    -- get current value
+    i          <- load pointer
+    p_d        <- getArrayElement tape i
+    d          <- load p_d
+
+    -- jump based on the current value form first outer block
+    cond       <- icmp d NE (constI8 0)
+    condBr cond innerBlock outerBlock
+
+    -- generate loop code
+    setBlock innerBlock
+    brainfuckExprs exprs
+
+    -- get current value
+    i    <- load pointer
+    p_d  <- getArrayElement tape i
+    d    <- load p_d
+
+    -- jump based on the current value form first outer block
+    cond <- icmp d NE (constI8 0)
+    condBr cond innerBlock outerBlock
+
+    -- future commands get appended to the second outer block
+    setBlock outerBlock
+    return ()
+
 -- LLVM Operations
+br :: Name -> Codegen (Named Terminator)
+br name = terminator $ Do $ Br name []
+
+condBr :: Operand -> Name -> Name -> Codegen (Named Terminator)
+condBr cond t f = terminator $ Do $ CondBr cond t f []
+
+icmp :: Operand -> IntegerPredicate -> Operand -> Codegen Operand
+icmp l p r = addInstruction (ICmp p l r []) T.i1
 
 call :: Operand -> Type -> [Operand] -> Codegen Operand
 call fn t args =

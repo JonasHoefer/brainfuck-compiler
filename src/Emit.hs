@@ -31,9 +31,9 @@ codegenMain exprs = define T.void "main" [] blks
     blks =
         createBlocks
             $  execCodegen
-            $  brainfuckEntry
+            $  addBlock "entry"
             *> brainfuckExprs exprs
-            *> brainfuckExit
+            *> terminator (AST.Do $ AST.Ret Nothing [])
 
 codegen :: AST.Module -> [S.Expr] -> IO AST.Module
 codegen mod exprs =
