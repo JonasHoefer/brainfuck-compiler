@@ -77,12 +77,14 @@ codegenTape :: LLVM ()
 codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults
     { name                  = Name "tape"
     , LLVM.AST.Global.type' = T.ArrayType 512 T.i8
+    , initializer           = Just $ C.AggregateZero $ T.ArrayType 512 T.i8
     }
 
 codegenPointer :: LLVM ()
 codegenPointer = addDefn $ GlobalDefinition $ globalVariableDefaults
     { name                  = Name "pointer"
     , LLVM.AST.Global.type' = T.i32
+    , initializer           = Just $ C.Int 32 256
     }
 
 
@@ -213,14 +215,28 @@ brainfuckExprs = foldr ((>>) . brainfuckExpr) (return ())
 
 -- Expressions
 brainfuckExpr :: Expr -> Codegen ()
-brainfuckExpr Write = readTape >>= putChar
-    where putChar c = call putCharFn T.i32 [c] $> ()
+brainfuckExpr Write = do
+    i   <- load pointer
+    p_c <- getArrayElement tape i
+    c   <- load p_c
+    call putCharFn T.i32 [c]
+    return ()
 
-brainfuckExpr Read = getChar >>= writeTape
-    where getChar = call getCharFn T.i8 []
+brainfuckExpr Read = do
+    c   <- call getCharFn T.i8 []
+    i   <- load pointer
+    p_c <- getArrayElement tape i
+    store p_c c
 
-brainfuckExpr PosIncr = join (add <$> load pointer <*> pure (constI32 1)) $> ()
+brainfuckExpr PosIncr = do
+    i  <- load pointer
+    i' <- add i (constI32 1)
+    store pointer i'
 
+brainfuckExpr PosDecr = do
+    i  <- load pointer
+    i' <- sub i (constI32 1)
+    store pointer i'
 
 -- LLVM Operations
 
@@ -238,10 +254,13 @@ load ptr = addInstruction (Load False ptr Nothing 0 []) retType
 add :: Operand -> Operand -> Codegen Operand
 add l r = addInstruction (Add False False l r []) T.i8
 
+sub :: Operand -> Operand -> Codegen Operand
+sub l r = addInstruction (Sub False False l r []) T.i8
+
 getArrayElement :: Operand -> Operand -> Codegen Operand
-getArrayElement add ind = addInstruction instr retType
+getArrayElement arr ind = addInstruction instr retType
   where
-    instr   = GetElementPtr False add [constI32 0, ind] []
+    instr   = GetElementPtr False arr [constI32 0, ind] []
     retType = PointerType T.i8 (AddrSpace 0)
 
 readTape :: Codegen Operand
