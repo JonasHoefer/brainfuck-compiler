@@ -7,6 +7,7 @@ Currently done features:
 - [x] Parser
 - [x] Interpreter for testing purposes 
 - [x] llvm ir generation
+- [ ] fix bugs preventing some programs from working
 
 ## Usage
 Use `cat hw.bf | stack run && lli out.ll` to compile and execute an bf file.
