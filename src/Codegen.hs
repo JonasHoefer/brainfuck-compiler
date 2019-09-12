@@ -73,6 +73,12 @@ codegenGetCharRef = external T.i8 "getchar" []
 codegenPutCharRef :: LLVM ()
 codegenPutCharRef = external T.i32 "putchar" [(T.i8, "c")]
 
+codegenFlushRef :: LLVM ()
+codegenFlushRef = external T.i32 "fflush" args
+  where
+    argT = ptr $ NamedTypeReference $ Name "FILE"
+    args = [(argT, Name "")]
+
 codegenTape :: LLVM ()
 codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults
     { name                  = Name "tape"
@@ -163,7 +169,7 @@ freshName :: Codegen Name
 freshName = UnName <$> incrCount
     where incrCount = modify (\s -> s { count = count s + 1 }) >> gets count
 
--- instructions/statements
+-- append instructions/statements to the current block
 addInstruction :: Instruction -> Type -> Codegen Operand
 addInstruction ins t =
     -- adds instruction with given return type to list of instructions and returns a local reference to it's return type 
@@ -184,24 +190,28 @@ externf t n = ConstantOperand $ C.GlobalReference t n
 toArgs :: [Operand] -> [(Operand, [A.ParameterAttribute])]
 toArgs = map (, [])
 
+ptr :: Type -> Type
+ptr type' = PointerType type' $ AddrSpace 0
+
 ----------------------------------
 
 -- Global Constants 
 tape :: Operand
-tape = externf (PointerType (ArrayType 512 T.i8) (AddrSpace 0)) "tape"
+tape = externf (ptr $ ArrayType 512 T.i8) "tape"
 
 pointer :: Operand
-pointer = externf (PointerType T.i32 (AddrSpace 0)) "pointer"
+pointer = externf (ptr T.i32) "pointer"
 
 putCharFn :: Operand
-putCharFn = externf
-    (PointerType (FunctionType T.i32 [T.i8] False) (AddrSpace 0))
-    (Name "putchar")
+putCharFn = externf (ptr $ FunctionType T.i32 [T.i8] False) (Name "putchar")
 
 getCharFn :: Operand
-getCharFn = externf
-    (PointerType (FunctionType T.i8 [] False) (AddrSpace 0))
-    (Name "getchar")
+getCharFn = externf (ptr $ FunctionType T.i8 [] False) (Name "getchar")
+
+flushFn :: Operand
+flushFn = externf
+    (ptr $ FunctionType T.i32 [ptr $ NamedTypeReference $ Name "FILE"] False)
+    (Name "fflush")
 
 constI32 :: Integer -> Operand
 constI32 i = ConstantOperand $ C.Int 32 i
@@ -240,7 +250,7 @@ getArrayElement :: Operand -> Operand -> Codegen Operand
 getArrayElement arr ind = addInstruction instr retType
   where
     instr   = GetElementPtr False arr [constI32 0, ind] []
-    retType = PointerType T.i8 (AddrSpace 0)
+    retType = ptr T.i8
 
 readTape :: Codegen Operand
 readTape = load pointer >>= getArrayElement tape >>= load

@@ -10,11 +10,15 @@
         "defn",
         "deriving",
         "externf",
+        "fflush",
         "foldr",
         "generalised",
+        "getchar",
         "haskeline",
+        "icmp",
         "intpr",
         "newtype",
+        "putchar",
         "state"
     ]
 }

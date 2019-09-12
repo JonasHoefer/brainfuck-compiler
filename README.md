@@ -6,4 +6,7 @@ A compiler for [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck) written in [
 Currently done features:
 - [x] Parser
 - [x] Interpreter for testing purposes 
-- [ ] llvm ir generation
+- [x] llvm ir generation
+
+## Usage
+Use `cat hw.bf | stack run && lli out.ll` to compile and execute an bf file.
