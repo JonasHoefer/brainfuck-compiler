@@ -21,7 +21,6 @@ import           Control.Applicative
 import           LLVM.AST
 import           LLVM.AST.Global
 import           LLVM.AST.AddrSpace
-import qualified LLVM.AST                      as AST
 import qualified LLVM.AST.Type                 as T
 import qualified LLVM.AST.Typed                as T
 import qualified LLVM.AST.Linkage              as L
