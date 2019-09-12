@@ -41,6 +41,8 @@ codegen mod exprs =
                 codegenGetCharRef
                     *> codegenPutCharRef
                     *> codegenTape
+                    *> codegenFileTRef
+                    *> codegenFlushRef
                     *> codegenPointer
                     *> codegenMain exprs
         newAst = runLLVM mod mainMod

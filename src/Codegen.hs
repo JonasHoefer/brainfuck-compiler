@@ -31,6 +31,11 @@ import qualified LLVM.AST.Attribute            as A
 import qualified LLVM.AST.FloatingPointPredicate
                                                as FP
 
+tapeLength :: Word64
+tapeLength = 262144
+
+startPos :: Integer
+startPos = 131072
 
 newtype LLVM a = LLVM (State Module a) deriving (Functor, Applicative, Monad, MonadState Module )
 
@@ -79,18 +84,21 @@ codegenFlushRef = external T.i32 "fflush" args
     argT = ptr $ NamedTypeReference $ Name "FILE"
     args = [(argT, Name "")]
 
+codegenFileTRef :: LLVM ()
+codegenFileTRef = addDefn $ TypeDefinition (Name "FILE") Nothing
+
 codegenTape :: LLVM ()
 codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults
-    { name                  = Name "tape"
-    , LLVM.AST.Global.type' = T.ArrayType 512 T.i8
-    , initializer           = Just $ C.AggregateZero $ T.ArrayType 512 T.i8
+    { name = Name "tape"
+    , LLVM.AST.Global.type' = T.ArrayType tapeLength T.i8
+    , initializer = Just $ C.AggregateZero $ T.ArrayType tapeLength T.i8
     }
 
 codegenPointer :: LLVM ()
 codegenPointer = addDefn $ GlobalDefinition $ globalVariableDefaults
     { name                  = Name "pointer"
     , LLVM.AST.Global.type' = T.i32
-    , initializer           = Just $ C.Int 32 256
+    , initializer           = Just $ C.Int 32 startPos
     }
 
 
@@ -197,7 +205,7 @@ ptr type' = PointerType type' $ AddrSpace 0
 
 -- Global Constants 
 tape :: Operand
-tape = externf (ptr $ ArrayType 512 T.i8) "tape"
+tape = externf (ptr $ ArrayType tapeLength T.i8) "tape"
 
 pointer :: Operand
 pointer = externf (ptr T.i32) "pointer"
@@ -269,6 +277,9 @@ brainfuckExpr :: Expr -> Codegen ()
 brainfuckExpr Write = do
     c <- currentTapeValue
     call putCharFn T.i32 [c]
+    call flushFn
+         T.i32
+         [ConstantOperand $ C.Null $ ptr $ NamedTypeReference $ Name "FILE"]
     return ()
 
 brainfuckExpr Read = do
