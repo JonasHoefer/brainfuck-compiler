@@ -303,21 +303,10 @@ brainfuckExpr PosDecr = do
 
 brainfuckExpr (Loop exprs) = do
     -- create block for the loop and the rest code after the loop in this 'scope'
-    blockCount <- gets blockCount
-    innerBlock <-
-        addBlock
-        $       toShortByteString
-        $       "block"
-        ++      show blockCount
-        `debug` "block"
-        ++      show blockCount
-    outerBlock <-
-        addBlock
-        $       toShortByteString
-        $       "block"
-        ++      show blockCount
-        `debug` "block"
-        ++      show blockCount
+    bc         <- gets blockCount
+    innerBlock <- addBlock $ toShortByteString ("block" ++ show bc)
+    bc         <- gets blockCount
+    outerBlock <- addBlock $ toShortByteString ("block" ++ show bc)
 
     -- jump based on the current value form first outer block
     jumpNonZero innerBlock outerBlock

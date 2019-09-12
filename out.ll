@@ -93,19 +93,19 @@ entry:
   %57 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %56
   %58 = load i8, i8* %57
   %59 = icmp ne i8 %58, 0
-  br i1 %59, label %block11, label %block111
+  br i1 %59, label %block1, label %block2
 
-block11:                                          ; preds = %block65651, %entry
+block1:                                           ; preds = %block66, %entry
   %60 = load i32, i32* @pointer
   %61 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %60
   %62 = load i8, i8* %61
   %63 = icmp ne i8 %62, 0
-  br i1 %63, label %block33, label %block331
+  br i1 %63, label %block3, label %block4
 
-block111:                                         ; preds = %block65651, %entry
+block2:                                           ; preds = %block66, %entry
   ret void
 
-block33:                                          ; preds = %block551, %block11
+block3:                                           ; preds = %block6, %block1
   %64 = load i32, i32* @pointer
   %65 = add i32 %64, 1
   store i32 %65, i32* @pointer
@@ -113,9 +113,9 @@ block33:                                          ; preds = %block551, %block11
   %67 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %66
   %68 = load i8, i8* %67
   %69 = icmp ne i8 %68, 0
-  br i1 %69, label %block55, label %block551
+  br i1 %69, label %block5, label %block6
 
-block331:                                         ; preds = %block551, %block11
+block4:                                           ; preds = %block6, %block1
   %70 = load i32, i32* @pointer
   %71 = add i32 %70, 1
   store i32 %71, i32* @pointer
@@ -144,9 +144,9 @@ block331:                                         ; preds = %block551, %block11
   %89 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %88
   %90 = load i8, i8* %89
   %91 = icmp ne i8 %90, 0
-  br i1 %91, label %block1313, label %block13131
+  br i1 %91, label %block13, label %block14
 
-block55:                                          ; preds = %block991, %block33
+block5:                                           ; preds = %block10, %block3
   %92 = load i32, i32* @pointer
   %93 = add i32 %92, 1
   store i32 %93, i32* @pointer
@@ -157,9 +157,9 @@ block55:                                          ; preds = %block991, %block33
   %97 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %96
   %98 = load i8, i8* %97
   %99 = icmp ne i8 %98, 0
-  br i1 %99, label %block77, label %block771
+  br i1 %99, label %block7, label %block8
 
-block551:                                         ; preds = %block991, %block33
+block6:                                           ; preds = %block10, %block3
   %100 = load i32, i32* @pointer
   %101 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %100
   %102 = load i8, i8* %101
@@ -172,9 +172,9 @@ block551:                                         ; preds = %block991, %block33
   %107 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %106
   %108 = load i8, i8* %107
   %109 = icmp ne i8 %108, 0
-  br i1 %109, label %block33, label %block331
+  br i1 %109, label %block3, label %block4
 
-block77:                                          ; preds = %block77, %block55
+block7:                                           ; preds = %block7, %block5
   %110 = load i32, i32* @pointer
   %111 = add i32 %110, 1
   store i32 %111, i32* @pointer
@@ -191,9 +191,9 @@ block77:                                          ; preds = %block77, %block55
   %119 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %118
   %120 = load i8, i8* %119
   %121 = icmp ne i8 %120, 0
-  br i1 %121, label %block77, label %block771
+  br i1 %121, label %block7, label %block8
 
-block771:                                         ; preds = %block77, %block55
+block8:                                           ; preds = %block7, %block5
   %122 = load i32, i32* @pointer
   %123 = sub i32 %122, 1
   store i32 %123, i32* @pointer
@@ -210,16 +210,16 @@ block771:                                         ; preds = %block77, %block55
   %131 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %130
   %132 = load i8, i8* %131
   %133 = icmp ne i8 %132, 0
-  br i1 %133, label %block99, label %block991
+  br i1 %133, label %block9, label %block10
 
-block99:                                          ; preds = %block11111, %block771
+block9:                                           ; preds = %block12, %block8
   %134 = load i32, i32* @pointer
   %135 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %134
   %136 = load i8, i8* %135
   %137 = icmp ne i8 %136, 0
-  br i1 %137, label %block1111, label %block11111
+  br i1 %137, label %block11, label %block12
 
-block991:                                         ; preds = %block11111, %block771
+block10:                                          ; preds = %block12, %block8
   %138 = load i32, i32* @pointer
   %139 = add i32 %138, 1
   store i32 %139, i32* @pointer
@@ -242,9 +242,9 @@ block991:                                         ; preds = %block11111, %block7
   %151 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %150
   %152 = load i8, i8* %151
   %153 = icmp ne i8 %152, 0
-  br i1 %153, label %block55, label %block551
+  br i1 %153, label %block5, label %block6
 
-block1111:                                        ; preds = %block1111, %block99
+block11:                                          ; preds = %block11, %block9
   %154 = load i32, i32* @pointer
   %155 = add i32 %154, 1
   store i32 %155, i32* @pointer
@@ -283,9 +283,9 @@ block1111:                                        ; preds = %block1111, %block99
   %179 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %178
   %180 = load i8, i8* %179
   %181 = icmp ne i8 %180, 0
-  br i1 %181, label %block1111, label %block11111
+  br i1 %181, label %block11, label %block12
 
-block11111:                                       ; preds = %block1111, %block99
+block12:                                          ; preds = %block11, %block9
   %182 = load i32, i32* @pointer
   %183 = sub i32 %182, 1
   store i32 %183, i32* @pointer
@@ -302,9 +302,9 @@ block11111:                                       ; preds = %block1111, %block99
   %191 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %190
   %192 = load i8, i8* %191
   %193 = icmp ne i8 %192, 0
-  br i1 %193, label %block99, label %block991
+  br i1 %193, label %block9, label %block10
 
-block1313:                                        ; preds = %block15151, %block331
+block13:                                          ; preds = %block16, %block4
   %194 = load i32, i32* @pointer
   %195 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %194
   %196 = load i8, i8* %195
@@ -314,9 +314,9 @@ block1313:                                        ; preds = %block15151, %block3
   %199 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %198
   %200 = load i8, i8* %199
   %201 = icmp ne i8 %200, 0
-  br i1 %201, label %block1515, label %block15151
+  br i1 %201, label %block15, label %block16
 
-block13131:                                       ; preds = %block15151, %block331
+block14:                                          ; preds = %block16, %block4
   %202 = load i32, i32* @pointer
   %203 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %202
   %204 = load i8, i8* %203
@@ -326,9 +326,9 @@ block13131:                                       ; preds = %block15151, %block3
   %207 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %206
   %208 = load i8, i8* %207
   %209 = icmp ne i8 %208, 0
-  br i1 %209, label %block1717, label %block17171
+  br i1 %209, label %block17, label %block18
 
-block1515:                                        ; preds = %block1515, %block1313
+block15:                                          ; preds = %block15, %block13
   %210 = load i32, i32* @pointer
   %211 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %210
   %212 = load i8, i8* %211
@@ -370,9 +370,9 @@ block1515:                                        ; preds = %block1515, %block13
   %239 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %238
   %240 = load i8, i8* %239
   %241 = icmp ne i8 %240, 0
-  br i1 %241, label %block1515, label %block15151
+  br i1 %241, label %block15, label %block16
 
-block15151:                                       ; preds = %block1515, %block1313
+block16:                                          ; preds = %block15, %block13
   %242 = load i32, i32* @pointer
   %243 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %242
   %244 = load i8, i8* %243
@@ -409,9 +409,9 @@ block15151:                                       ; preds = %block1515, %block13
   %267 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %266
   %268 = load i8, i8* %267
   %269 = icmp ne i8 %268, 0
-  br i1 %269, label %block1313, label %block13131
+  br i1 %269, label %block13, label %block14
 
-block1717:                                        ; preds = %block1717, %block13131
+block17:                                          ; preds = %block17, %block14
   %270 = load i32, i32* @pointer
   %271 = add i32 %270, 1
   store i32 %271, i32* @pointer
@@ -428,9 +428,9 @@ block1717:                                        ; preds = %block1717, %block13
   %279 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %278
   %280 = load i8, i8* %279
   %281 = icmp ne i8 %280, 0
-  br i1 %281, label %block1717, label %block17171
+  br i1 %281, label %block17, label %block18
 
-block17171:                                       ; preds = %block1717, %block13131
+block18:                                          ; preds = %block17, %block14
   %282 = load i32, i32* @pointer
   %283 = sub i32 %282, 1
   store i32 %283, i32* @pointer
@@ -447,9 +447,9 @@ block17171:                                       ; preds = %block1717, %block13
   %291 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %290
   %292 = load i8, i8* %291
   %293 = icmp ne i8 %292, 0
-  br i1 %293, label %block1919, label %block19191
+  br i1 %293, label %block19, label %block20
 
-block1919:                                        ; preds = %block1919, %block17171
+block19:                                          ; preds = %block19, %block18
   %294 = load i32, i32* @pointer
   %295 = sub i32 %294, 1
   store i32 %295, i32* @pointer
@@ -476,9 +476,9 @@ block1919:                                        ; preds = %block1919, %block17
   %311 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %310
   %312 = load i8, i8* %311
   %313 = icmp ne i8 %312, 0
-  br i1 %313, label %block1919, label %block19191
+  br i1 %313, label %block19, label %block20
 
-block19191:                                       ; preds = %block1919, %block17171
+block20:                                          ; preds = %block19, %block18
   %314 = load i32, i32* @pointer
   %315 = sub i32 %314, 1
   store i32 %315, i32* @pointer
@@ -489,9 +489,9 @@ block19191:                                       ; preds = %block1919, %block17
   %319 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %318
   %320 = load i8, i8* %319
   %321 = icmp ne i8 %320, 0
-  br i1 %321, label %block2121, label %block21211
+  br i1 %321, label %block21, label %block22
 
-block2121:                                        ; preds = %block47471, %block19191
+block21:                                          ; preds = %block48, %block20
   %322 = load i32, i32* @pointer
   %323 = add i32 %322, 1
   store i32 %323, i32* @pointer
@@ -514,9 +514,9 @@ block2121:                                        ; preds = %block47471, %block1
   %335 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %334
   %336 = load i8, i8* %335
   %337 = icmp ne i8 %336, 0
-  br i1 %337, label %block2323, label %block23231
+  br i1 %337, label %block23, label %block24
 
-block21211:                                       ; preds = %block47471, %block19191
+block22:                                          ; preds = %block48, %block20
   %338 = load i32, i32* @pointer
   %339 = add i32 %338, 1
   store i32 %339, i32* @pointer
@@ -535,16 +535,16 @@ block21211:                                       ; preds = %block47471, %block1
   %349 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %348
   %350 = load i8, i8* %349
   %351 = icmp ne i8 %350, 0
-  br i1 %351, label %block5959, label %block59591
+  br i1 %351, label %block59, label %block60
 
-block2323:                                        ; preds = %block25251, %block2121
+block23:                                          ; preds = %block26, %block21
   %352 = load i32, i32* @pointer
   %353 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %352
   %354 = load i8, i8* %353
   %355 = icmp ne i8 %354, 0
-  br i1 %355, label %block2525, label %block25251
+  br i1 %355, label %block25, label %block26
 
-block23231:                                       ; preds = %block25251, %block2121
+block24:                                          ; preds = %block26, %block21
   %356 = load i32, i32* @pointer
   %357 = sub i32 %356, 1
   store i32 %357, i32* @pointer
@@ -573,9 +573,9 @@ block23231:                                       ; preds = %block25251, %block2
   %373 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %372
   %374 = load i8, i8* %373
   %375 = icmp ne i8 %374, 0
-  br i1 %375, label %block2727, label %block27271
+  br i1 %375, label %block27, label %block28
 
-block2525:                                        ; preds = %block2525, %block2323
+block25:                                          ; preds = %block25, %block23
   %376 = load i32, i32* @pointer
   %377 = sub i32 %376, 1
   store i32 %377, i32* @pointer
@@ -614,9 +614,9 @@ block2525:                                        ; preds = %block2525, %block23
   %401 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %400
   %402 = load i8, i8* %401
   %403 = icmp ne i8 %402, 0
-  br i1 %403, label %block2525, label %block25251
+  br i1 %403, label %block25, label %block26
 
-block25251:                                       ; preds = %block2525, %block2323
+block26:                                          ; preds = %block25, %block23
   %404 = load i32, i32* @pointer
   %405 = add i32 %404, 1
   store i32 %405, i32* @pointer
@@ -633,9 +633,9 @@ block25251:                                       ; preds = %block2525, %block23
   %413 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %412
   %414 = load i8, i8* %413
   %415 = icmp ne i8 %414, 0
-  br i1 %415, label %block2323, label %block23231
+  br i1 %415, label %block23, label %block24
 
-block2727:                                        ; preds = %block2727, %block23231
+block27:                                          ; preds = %block27, %block24
   %416 = load i32, i32* @pointer
   %417 = sub i32 %416, 1
   store i32 %417, i32* @pointer
@@ -652,9 +652,9 @@ block2727:                                        ; preds = %block2727, %block23
   %425 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %424
   %426 = load i8, i8* %425
   %427 = icmp ne i8 %426, 0
-  br i1 %427, label %block2727, label %block27271
+  br i1 %427, label %block27, label %block28
 
-block27271:                                       ; preds = %block2727, %block23231
+block28:                                          ; preds = %block27, %block24
   %428 = load i32, i32* @pointer
   %429 = add i32 %428, 1
   store i32 %429, i32* @pointer
@@ -670,9 +670,9 @@ block27271:                                       ; preds = %block2727, %block23
   %437 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %436
   %438 = load i8, i8* %437
   %439 = icmp ne i8 %438, 0
-  br i1 %439, label %block2929, label %block29291
+  br i1 %439, label %block29, label %block30
 
-block2929:                                        ; preds = %block2929, %block27271
+block29:                                          ; preds = %block29, %block28
   %440 = load i32, i32* @pointer
   %441 = sub i32 %440, 1
   store i32 %441, i32* @pointer
@@ -699,9 +699,9 @@ block2929:                                        ; preds = %block2929, %block27
   %457 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %456
   %458 = load i8, i8* %457
   %459 = icmp ne i8 %458, 0
-  br i1 %459, label %block2929, label %block29291
+  br i1 %459, label %block29, label %block30
 
-block29291:                                       ; preds = %block2929, %block27271
+block30:                                          ; preds = %block29, %block28
   %460 = load i32, i32* @pointer
   %461 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %460
   %462 = load i8, i8* %461
@@ -717,9 +717,9 @@ block29291:                                       ; preds = %block2929, %block27
   %469 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %468
   %470 = load i8, i8* %469
   %471 = icmp ne i8 %470, 0
-  br i1 %471, label %block3131, label %block31311
+  br i1 %471, label %block31, label %block32
 
-block3131:                                        ; preds = %block41411, %block29291
+block31:                                          ; preds = %block42, %block30
   %472 = load i32, i32* @pointer
   %473 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %472
   %474 = load i8, i8* %473
@@ -741,9 +741,9 @@ block3131:                                        ; preds = %block41411, %block2
   %485 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %484
   %486 = load i8, i8* %485
   %487 = icmp ne i8 %486, 0
-  br i1 %487, label %block3333, label %block33331
+  br i1 %487, label %block33, label %block34
 
-block31311:                                       ; preds = %block41411, %block29291
+block32:                                          ; preds = %block42, %block30
   %488 = load i32, i32* @pointer
   %489 = add i32 %488, 1
   store i32 %489, i32* @pointer
@@ -751,9 +751,9 @@ block31311:                                       ; preds = %block41411, %block2
   %491 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %490
   %492 = load i8, i8* %491
   %493 = icmp ne i8 %492, 0
-  br i1 %493, label %block4343, label %block43431
+  br i1 %493, label %block43, label %block44
 
-block3333:                                        ; preds = %block39391, %block3131
+block33:                                          ; preds = %block40, %block31
   %494 = load i32, i32* @pointer
   %495 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %494
   %496 = load i8, i8* %495
@@ -763,9 +763,9 @@ block3333:                                        ; preds = %block39391, %block3
   %499 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %498
   %500 = load i8, i8* %499
   %501 = icmp ne i8 %500, 0
-  br i1 %501, label %block3535, label %block35351
+  br i1 %501, label %block35, label %block36
 
-block33331:                                       ; preds = %block39391, %block3131
+block34:                                          ; preds = %block40, %block31
   %502 = load i32, i32* @pointer
   %503 = sub i32 %502, 1
   store i32 %503, i32* @pointer
@@ -782,9 +782,9 @@ block33331:                                       ; preds = %block39391, %block3
   %511 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %510
   %512 = load i8, i8* %511
   %513 = icmp ne i8 %512, 0
-  br i1 %513, label %block4141, label %block41411
+  br i1 %513, label %block41, label %block42
 
-block3535:                                        ; preds = %block3535, %block3333
+block35:                                          ; preds = %block35, %block33
   %514 = load i32, i32* @pointer
   %515 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %514
   %516 = load i8, i8* %515
@@ -811,9 +811,9 @@ block3535:                                        ; preds = %block3535, %block33
   %531 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %530
   %532 = load i8, i8* %531
   %533 = icmp ne i8 %532, 0
-  br i1 %533, label %block3535, label %block35351
+  br i1 %533, label %block35, label %block36
 
-block35351:                                       ; preds = %block3535, %block3333
+block36:                                          ; preds = %block35, %block33
   %534 = load i32, i32* @pointer
   %535 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %534
   %536 = load i8, i8* %535
@@ -834,9 +834,9 @@ block35351:                                       ; preds = %block3535, %block33
   %547 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %546
   %548 = load i8, i8* %547
   %549 = icmp ne i8 %548, 0
-  br i1 %549, label %block3737, label %block37371
+  br i1 %549, label %block37, label %block38
 
-block3737:                                        ; preds = %block3737, %block35351
+block37:                                          ; preds = %block37, %block36
   %550 = load i32, i32* @pointer
   %551 = add i32 %550, 1
   store i32 %551, i32* @pointer
@@ -858,9 +858,9 @@ block3737:                                        ; preds = %block3737, %block35
   %563 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %562
   %564 = load i8, i8* %563
   %565 = icmp ne i8 %564, 0
-  br i1 %565, label %block3737, label %block37371
+  br i1 %565, label %block37, label %block38
 
-block37371:                                       ; preds = %block3737, %block35351
+block38:                                          ; preds = %block37, %block36
   %566 = load i32, i32* @pointer
   %567 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %566
   %568 = load i8, i8* %567
@@ -886,9 +886,9 @@ block37371:                                       ; preds = %block3737, %block35
   %583 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %582
   %584 = load i8, i8* %583
   %585 = icmp ne i8 %584, 0
-  br i1 %585, label %block3939, label %block39391
+  br i1 %585, label %block39, label %block40
 
-block3939:                                        ; preds = %block3939, %block37371
+block39:                                          ; preds = %block39, %block38
   %586 = load i32, i32* @pointer
   %587 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %586
   %588 = load i8, i8* %587
@@ -915,9 +915,9 @@ block3939:                                        ; preds = %block3939, %block37
   %603 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %602
   %604 = load i8, i8* %603
   %605 = icmp ne i8 %604, 0
-  br i1 %605, label %block3939, label %block39391
+  br i1 %605, label %block39, label %block40
 
-block39391:                                       ; preds = %block3939, %block37371
+block40:                                          ; preds = %block39, %block38
   %606 = load i32, i32* @pointer
   %607 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %606
   %608 = load i8, i8* %607
@@ -939,9 +939,9 @@ block39391:                                       ; preds = %block3939, %block37
   %619 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %618
   %620 = load i8, i8* %619
   %621 = icmp ne i8 %620, 0
-  br i1 %621, label %block3333, label %block33331
+  br i1 %621, label %block33, label %block34
 
-block4141:                                        ; preds = %block4141, %block33331
+block41:                                          ; preds = %block41, %block34
   %622 = load i32, i32* @pointer
   %623 = sub i32 %622, 1
   store i32 %623, i32* @pointer
@@ -958,16 +958,16 @@ block4141:                                        ; preds = %block4141, %block33
   %631 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %630
   %632 = load i8, i8* %631
   %633 = icmp ne i8 %632, 0
-  br i1 %633, label %block4141, label %block41411
+  br i1 %633, label %block41, label %block42
 
-block41411:                                       ; preds = %block4141, %block33331
+block42:                                          ; preds = %block41, %block34
   %634 = load i32, i32* @pointer
   %635 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %634
   %636 = load i8, i8* %635
   %637 = icmp ne i8 %636, 0
-  br i1 %637, label %block3131, label %block31311
+  br i1 %637, label %block31, label %block32
 
-block4343:                                        ; preds = %block45451, %block31311
+block43:                                          ; preds = %block46, %block32
   %638 = load i32, i32* @pointer
   %639 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %638
   %640 = load i8, i8* %639
@@ -977,9 +977,9 @@ block4343:                                        ; preds = %block45451, %block3
   %643 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %642
   %644 = load i8, i8* %643
   %645 = icmp ne i8 %644, 0
-  br i1 %645, label %block4545, label %block45451
+  br i1 %645, label %block45, label %block46
 
-block43431:                                       ; preds = %block45451, %block31311
+block44:                                          ; preds = %block46, %block32
   %646 = load i32, i32* @pointer
   %647 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %646
   %648 = load i8, i8* %647
@@ -992,9 +992,9 @@ block43431:                                       ; preds = %block45451, %block3
   %653 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %652
   %654 = load i8, i8* %653
   %655 = icmp ne i8 %654, 0
-  br i1 %655, label %block4747, label %block47471
+  br i1 %655, label %block47, label %block48
 
-block4545:                                        ; preds = %block4545, %block4343
+block45:                                          ; preds = %block45, %block43
   %656 = load i32, i32* @pointer
   %657 = sub i32 %656, 1
   store i32 %657, i32* @pointer
@@ -1015,16 +1015,16 @@ block4545:                                        ; preds = %block4545, %block43
   %669 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %668
   %670 = load i8, i8* %669
   %671 = icmp ne i8 %670, 0
-  br i1 %671, label %block4545, label %block45451
+  br i1 %671, label %block45, label %block46
 
-block45451:                                       ; preds = %block4545, %block4343
+block46:                                          ; preds = %block45, %block43
   %672 = load i32, i32* @pointer
   %673 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %672
   %674 = load i8, i8* %673
   %675 = icmp ne i8 %674, 0
-  br i1 %675, label %block4343, label %block43431
+  br i1 %675, label %block43, label %block44
 
-block4747:                                        ; preds = %block57571, %block43431
+block47:                                          ; preds = %block58, %block44
   %676 = load i32, i32* @pointer
   %677 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %676
   %678 = load i8, i8* %677
@@ -1046,9 +1046,9 @@ block4747:                                        ; preds = %block57571, %block4
   %689 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %688
   %690 = load i8, i8* %689
   %691 = icmp ne i8 %690, 0
-  br i1 %691, label %block4949, label %block49491
+  br i1 %691, label %block49, label %block50
 
-block47471:                                       ; preds = %block57571, %block43431
+block48:                                          ; preds = %block58, %block44
   %692 = load i32, i32* @pointer
   %693 = sub i32 %692, 1
   store i32 %693, i32* @pointer
@@ -1059,9 +1059,9 @@ block47471:                                       ; preds = %block57571, %block4
   %697 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %696
   %698 = load i8, i8* %697
   %699 = icmp ne i8 %698, 0
-  br i1 %699, label %block2121, label %block21211
+  br i1 %699, label %block21, label %block22
 
-block4949:                                        ; preds = %block55551, %block4747
+block49:                                          ; preds = %block56, %block47
   %700 = load i32, i32* @pointer
   %701 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %700
   %702 = load i8, i8* %701
@@ -1071,9 +1071,9 @@ block4949:                                        ; preds = %block55551, %block4
   %705 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %704
   %706 = load i8, i8* %705
   %707 = icmp ne i8 %706, 0
-  br i1 %707, label %block5151, label %block51511
+  br i1 %707, label %block51, label %block52
 
-block49491:                                       ; preds = %block55551, %block4747
+block50:                                          ; preds = %block56, %block47
   %708 = load i32, i32* @pointer
   %709 = sub i32 %708, 1
   store i32 %709, i32* @pointer
@@ -1090,9 +1090,9 @@ block49491:                                       ; preds = %block55551, %block4
   %717 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %716
   %718 = load i8, i8* %717
   %719 = icmp ne i8 %718, 0
-  br i1 %719, label %block5757, label %block57571
+  br i1 %719, label %block57, label %block58
 
-block5151:                                        ; preds = %block5151, %block4949
+block51:                                          ; preds = %block51, %block49
   %720 = load i32, i32* @pointer
   %721 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %720
   %722 = load i8, i8* %721
@@ -1119,9 +1119,9 @@ block5151:                                        ; preds = %block5151, %block49
   %737 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %736
   %738 = load i8, i8* %737
   %739 = icmp ne i8 %738, 0
-  br i1 %739, label %block5151, label %block51511
+  br i1 %739, label %block51, label %block52
 
-block51511:                                       ; preds = %block5151, %block4949
+block52:                                          ; preds = %block51, %block49
   %740 = load i32, i32* @pointer
   %741 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %740
   %742 = load i8, i8* %741
@@ -1145,9 +1145,9 @@ block51511:                                       ; preds = %block5151, %block49
   %755 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %754
   %756 = load i8, i8* %755
   %757 = icmp ne i8 %756, 0
-  br i1 %757, label %block5353, label %block53531
+  br i1 %757, label %block53, label %block54
 
-block5353:                                        ; preds = %block5353, %block51511
+block53:                                          ; preds = %block53, %block52
   %758 = load i32, i32* @pointer
   %759 = add i32 %758, 1
   store i32 %759, i32* @pointer
@@ -1169,9 +1169,9 @@ block5353:                                        ; preds = %block5353, %block51
   %771 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %770
   %772 = load i8, i8* %771
   %773 = icmp ne i8 %772, 0
-  br i1 %773, label %block5353, label %block53531
+  br i1 %773, label %block53, label %block54
 
-block53531:                                       ; preds = %block5353, %block51511
+block54:                                          ; preds = %block53, %block52
   %774 = load i32, i32* @pointer
   %775 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %774
   %776 = load i8, i8* %775
@@ -1200,9 +1200,9 @@ block53531:                                       ; preds = %block5353, %block51
   %793 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %792
   %794 = load i8, i8* %793
   %795 = icmp ne i8 %794, 0
-  br i1 %795, label %block5555, label %block55551
+  br i1 %795, label %block55, label %block56
 
-block5555:                                        ; preds = %block5555, %block53531
+block55:                                          ; preds = %block55, %block54
   %796 = load i32, i32* @pointer
   %797 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %796
   %798 = load i8, i8* %797
@@ -1229,9 +1229,9 @@ block5555:                                        ; preds = %block5555, %block53
   %813 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %812
   %814 = load i8, i8* %813
   %815 = icmp ne i8 %814, 0
-  br i1 %815, label %block5555, label %block55551
+  br i1 %815, label %block55, label %block56
 
-block55551:                                       ; preds = %block5555, %block53531
+block56:                                          ; preds = %block55, %block54
   %816 = load i32, i32* @pointer
   %817 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %816
   %818 = load i8, i8* %817
@@ -1253,9 +1253,9 @@ block55551:                                       ; preds = %block5555, %block53
   %829 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %828
   %830 = load i8, i8* %829
   %831 = icmp ne i8 %830, 0
-  br i1 %831, label %block4949, label %block49491
+  br i1 %831, label %block49, label %block50
 
-block5757:                                        ; preds = %block5757, %block49491
+block57:                                          ; preds = %block57, %block50
   %832 = load i32, i32* @pointer
   %833 = sub i32 %832, 1
   store i32 %833, i32* @pointer
@@ -1272,16 +1272,16 @@ block5757:                                        ; preds = %block5757, %block49
   %841 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %840
   %842 = load i8, i8* %841
   %843 = icmp ne i8 %842, 0
-  br i1 %843, label %block5757, label %block57571
+  br i1 %843, label %block57, label %block58
 
-block57571:                                       ; preds = %block5757, %block49491
+block58:                                          ; preds = %block57, %block50
   %844 = load i32, i32* @pointer
   %845 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %844
   %846 = load i8, i8* %845
   %847 = icmp ne i8 %846, 0
-  br i1 %847, label %block4747, label %block47471
+  br i1 %847, label %block47, label %block48
 
-block5959:                                        ; preds = %block5959, %block21211
+block59:                                          ; preds = %block59, %block22
   %848 = load i32, i32* @pointer
   %849 = add i32 %848, 1
   store i32 %849, i32* @pointer
@@ -1298,9 +1298,9 @@ block5959:                                        ; preds = %block5959, %block21
   %857 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %856
   %858 = load i8, i8* %857
   %859 = icmp ne i8 %858, 0
-  br i1 %859, label %block5959, label %block59591
+  br i1 %859, label %block59, label %block60
 
-block59591:                                       ; preds = %block5959, %block21211
+block60:                                          ; preds = %block59, %block22
   %860 = load i32, i32* @pointer
   %861 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %860
   %862 = load i8, i8* %861
@@ -1310,9 +1310,9 @@ block59591:                                       ; preds = %block5959, %block21
   %865 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %864
   %866 = load i8, i8* %865
   %867 = icmp ne i8 %866, 0
-  br i1 %867, label %block6161, label %block61611
+  br i1 %867, label %block61, label %block62
 
-block6161:                                        ; preds = %block6161, %block59591
+block61:                                          ; preds = %block61, %block60
   %868 = load i32, i32* @pointer
   %869 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %868
   %870 = load i8, i8* %869
@@ -1344,9 +1344,9 @@ block6161:                                        ; preds = %block6161, %block59
   %889 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %888
   %890 = load i8, i8* %889
   %891 = icmp ne i8 %890, 0
-  br i1 %891, label %block6161, label %block61611
+  br i1 %891, label %block61, label %block62
 
-block61611:                                       ; preds = %block6161, %block59591
+block62:                                          ; preds = %block61, %block60
   %892 = load i32, i32* @pointer
   %893 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %892
   %894 = load i8, i8* %893
@@ -1361,9 +1361,9 @@ block61611:                                       ; preds = %block6161, %block59
   %901 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %900
   %902 = load i8, i8* %901
   %903 = icmp ne i8 %902, 0
-  br i1 %903, label %block6363, label %block63631
+  br i1 %903, label %block63, label %block64
 
-block6363:                                        ; preds = %block6363, %block61611
+block63:                                          ; preds = %block63, %block62
   %904 = load i32, i32* @pointer
   %905 = sub i32 %904, 1
   store i32 %905, i32* @pointer
@@ -1380,9 +1380,9 @@ block6363:                                        ; preds = %block6363, %block61
   %913 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %912
   %914 = load i8, i8* %913
   %915 = icmp ne i8 %914, 0
-  br i1 %915, label %block6363, label %block63631
+  br i1 %915, label %block63, label %block64
 
-block63631:                                       ; preds = %block6363, %block61611
+block64:                                          ; preds = %block63, %block62
   %916 = load i32, i32* @pointer
   %917 = add i32 %916, 1
   store i32 %917, i32* @pointer
@@ -1401,9 +1401,9 @@ block63631:                                       ; preds = %block6363, %block61
   %927 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %926
   %928 = load i8, i8* %927
   %929 = icmp ne i8 %928, 0
-  br i1 %929, label %block6565, label %block65651
+  br i1 %929, label %block65, label %block66
 
-block6565:                                        ; preds = %block1791791, %block63631
+block65:                                          ; preds = %block180, %block64
   %930 = load i32, i32* @pointer
   %931 = add i32 %930, 1
   store i32 %931, i32* @pointer
@@ -1416,9 +1416,9 @@ block6565:                                        ; preds = %block1791791, %bloc
   %937 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %936
   %938 = load i8, i8* %937
   %939 = icmp ne i8 %938, 0
-  br i1 %939, label %block6767, label %block67671
+  br i1 %939, label %block67, label %block68
 
-block65651:                                       ; preds = %block1791791, %block63631
+block66:                                          ; preds = %block180, %block64
   %940 = load i32, i32* @pointer
   %941 = add i32 %940, 1
   store i32 %941, i32* @pointer
@@ -1426,9 +1426,9 @@ block65651:                                       ; preds = %block1791791, %bloc
   %943 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %942
   %944 = load i8, i8* %943
   %945 = icmp ne i8 %944, 0
-  br i1 %945, label %block11, label %block111
+  br i1 %945, label %block1, label %block2
 
-block6767:                                        ; preds = %block81811, %block6565
+block67:                                          ; preds = %block82, %block65
   %946 = load i32, i32* @pointer
   %947 = add i32 %946, 1
   store i32 %947, i32* @pointer
@@ -1439,9 +1439,9 @@ block6767:                                        ; preds = %block81811, %block6
   %951 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %950
   %952 = load i8, i8* %951
   %953 = icmp ne i8 %952, 0
-  br i1 %953, label %block6969, label %block69691
+  br i1 %953, label %block69, label %block70
 
-block67671:                                       ; preds = %block81811, %block6565
+block68:                                          ; preds = %block82, %block65
   %954 = load i32, i32* @pointer
   %955 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %954
   %956 = load i8, i8* %955
@@ -1454,9 +1454,9 @@ block67671:                                       ; preds = %block81811, %block6
   %961 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %960
   %962 = load i8, i8* %961
   %963 = icmp ne i8 %962, 0
-  br i1 %963, label %block8585, label %block85851
+  br i1 %963, label %block85, label %block86
 
-block6969:                                        ; preds = %block79791, %block6767
+block69:                                          ; preds = %block80, %block67
   %964 = load i32, i32* @pointer
   %965 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %964
   %966 = load i8, i8* %965
@@ -1471,9 +1471,9 @@ block6969:                                        ; preds = %block79791, %block6
   %973 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %972
   %974 = load i8, i8* %973
   %975 = icmp ne i8 %974, 0
-  br i1 %975, label %block7171, label %block71711
+  br i1 %975, label %block71, label %block72
 
-block69691:                                       ; preds = %block79791, %block6767
+block70:                                          ; preds = %block80, %block67
   %976 = load i32, i32* @pointer
   %977 = sub i32 %976, 1
   store i32 %977, i32* @pointer
@@ -1484,9 +1484,9 @@ block69691:                                       ; preds = %block79791, %block6
   %981 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %980
   %982 = load i8, i8* %981
   %983 = icmp ne i8 %982, 0
-  br i1 %983, label %block8181, label %block81811
+  br i1 %983, label %block81, label %block82
 
-block7171:                                        ; preds = %block7171, %block6969
+block71:                                          ; preds = %block71, %block69
   %984 = load i32, i32* @pointer
   %985 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %984
   %986 = load i8, i8* %985
@@ -1528,9 +1528,9 @@ block7171:                                        ; preds = %block7171, %block69
   %1013 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1012
   %1014 = load i8, i8* %1013
   %1015 = icmp ne i8 %1014, 0
-  br i1 %1015, label %block7171, label %block71711
+  br i1 %1015, label %block71, label %block72
 
-block71711:                                       ; preds = %block7171, %block6969
+block72:                                          ; preds = %block71, %block69
   %1016 = load i32, i32* @pointer
   %1017 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1016
   %1018 = load i8, i8* %1017
@@ -1543,9 +1543,9 @@ block71711:                                       ; preds = %block7171, %block69
   %1023 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1022
   %1024 = load i8, i8* %1023
   %1025 = icmp ne i8 %1024, 0
-  br i1 %1025, label %block7373, label %block73731
+  br i1 %1025, label %block73, label %block74
 
-block7373:                                        ; preds = %block75751, %block71711
+block73:                                          ; preds = %block76, %block72
   %1026 = load i32, i32* @pointer
   %1027 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1026
   %1028 = load i8, i8* %1027
@@ -1555,9 +1555,9 @@ block7373:                                        ; preds = %block75751, %block7
   %1031 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1030
   %1032 = load i8, i8* %1031
   %1033 = icmp ne i8 %1032, 0
-  br i1 %1033, label %block7575, label %block75751
+  br i1 %1033, label %block75, label %block76
 
-block73731:                                       ; preds = %block75751, %block71711
+block74:                                          ; preds = %block76, %block72
   %1034 = load i32, i32* @pointer
   %1035 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1034
   %1036 = load i8, i8* %1035
@@ -1580,9 +1580,9 @@ block73731:                                       ; preds = %block75751, %block7
   %1049 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1048
   %1050 = load i8, i8* %1049
   %1051 = icmp ne i8 %1050, 0
-  br i1 %1051, label %block7979, label %block79791
+  br i1 %1051, label %block79, label %block80
 
-block7575:                                        ; preds = %block77771, %block7373
+block75:                                          ; preds = %block78, %block73
   %1052 = load i32, i32* @pointer
   %1053 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1052
   %1054 = load i8, i8* %1053
@@ -1592,16 +1592,16 @@ block7575:                                        ; preds = %block77771, %block7
   %1057 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1056
   %1058 = load i8, i8* %1057
   %1059 = icmp ne i8 %1058, 0
-  br i1 %1059, label %block7777, label %block77771
+  br i1 %1059, label %block77, label %block78
 
-block75751:                                       ; preds = %block77771, %block7373
+block76:                                          ; preds = %block78, %block73
   %1060 = load i32, i32* @pointer
   %1061 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1060
   %1062 = load i8, i8* %1061
   %1063 = icmp ne i8 %1062, 0
-  br i1 %1063, label %block7373, label %block73731
+  br i1 %1063, label %block73, label %block74
 
-block7777:                                        ; preds = %block7777, %block7575
+block77:                                          ; preds = %block77, %block75
   %1064 = load i32, i32* @pointer
   %1065 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1064
   %1066 = load i8, i8* %1065
@@ -1638,9 +1638,9 @@ block7777:                                        ; preds = %block7777, %block75
   %1089 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1088
   %1090 = load i8, i8* %1089
   %1091 = icmp ne i8 %1090, 0
-  br i1 %1091, label %block7777, label %block77771
+  br i1 %1091, label %block77, label %block78
 
-block77771:                                       ; preds = %block7777, %block7575
+block78:                                          ; preds = %block77, %block75
   %1092 = load i32, i32* @pointer
   %1093 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1092
   %1094 = load i8, i8* %1093
@@ -1667,9 +1667,9 @@ block77771:                                       ; preds = %block7777, %block75
   %1109 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1108
   %1110 = load i8, i8* %1109
   %1111 = icmp ne i8 %1110, 0
-  br i1 %1111, label %block7575, label %block75751
+  br i1 %1111, label %block75, label %block76
 
-block7979:                                        ; preds = %block7979, %block73731
+block79:                                          ; preds = %block79, %block74
   %1112 = load i32, i32* @pointer
   %1113 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1112
   %1114 = load i8, i8* %1113
@@ -1696,9 +1696,9 @@ block7979:                                        ; preds = %block7979, %block73
   %1129 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1128
   %1130 = load i8, i8* %1129
   %1131 = icmp ne i8 %1130, 0
-  br i1 %1131, label %block7979, label %block79791
+  br i1 %1131, label %block79, label %block80
 
-block79791:                                       ; preds = %block7979, %block73731
+block80:                                          ; preds = %block79, %block74
   %1132 = load i32, i32* @pointer
   %1133 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1132
   %1134 = load i8, i8* %1133
@@ -1730,9 +1730,9 @@ block79791:                                       ; preds = %block7979, %block73
   %1153 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1152
   %1154 = load i8, i8* %1153
   %1155 = icmp ne i8 %1154, 0
-  br i1 %1155, label %block6969, label %block69691
+  br i1 %1155, label %block69, label %block70
 
-block8181:                                        ; preds = %block83831, %block69691
+block81:                                          ; preds = %block84, %block70
   %1156 = load i32, i32* @pointer
   %1157 = add i32 %1156, 1
   store i32 %1157, i32* @pointer
@@ -1740,9 +1740,9 @@ block8181:                                        ; preds = %block83831, %block6
   %1159 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1158
   %1160 = load i8, i8* %1159
   %1161 = icmp ne i8 %1160, 0
-  br i1 %1161, label %block8383, label %block83831
+  br i1 %1161, label %block83, label %block84
 
-block81811:                                       ; preds = %block83831, %block69691
+block82:                                          ; preds = %block84, %block70
   %1162 = load i32, i32* @pointer
   %1163 = add i32 %1162, 1
   store i32 %1163, i32* @pointer
@@ -1764,9 +1764,9 @@ block81811:                                       ; preds = %block83831, %block6
   %1175 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1174
   %1176 = load i8, i8* %1175
   %1177 = icmp ne i8 %1176, 0
-  br i1 %1177, label %block6767, label %block67671
+  br i1 %1177, label %block67, label %block68
 
-block8383:                                        ; preds = %block8383, %block8181
+block83:                                          ; preds = %block83, %block81
   %1178 = load i32, i32* @pointer
   %1179 = sub i32 %1178, 1
   store i32 %1179, i32* @pointer
@@ -1788,9 +1788,9 @@ block8383:                                        ; preds = %block8383, %block81
   %1191 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1190
   %1192 = load i8, i8* %1191
   %1193 = icmp ne i8 %1192, 0
-  br i1 %1193, label %block8383, label %block83831
+  br i1 %1193, label %block83, label %block84
 
-block83831:                                       ; preds = %block8383, %block8181
+block84:                                          ; preds = %block83, %block81
   %1194 = load i32, i32* @pointer
   %1195 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1194
   %1196 = load i8, i8* %1195
@@ -1803,9 +1803,9 @@ block83831:                                       ; preds = %block8383, %block81
   %1201 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1200
   %1202 = load i8, i8* %1201
   %1203 = icmp ne i8 %1202, 0
-  br i1 %1203, label %block8181, label %block81811
+  br i1 %1203, label %block81, label %block82
 
-block8585:                                        ; preds = %block8585, %block67671
+block85:                                          ; preds = %block85, %block68
   %1204 = load i32, i32* @pointer
   %1205 = add i32 %1204, 1
   store i32 %1205, i32* @pointer
@@ -1822,9 +1822,9 @@ block8585:                                        ; preds = %block8585, %block67
   %1213 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1212
   %1214 = load i8, i8* %1213
   %1215 = icmp ne i8 %1214, 0
-  br i1 %1215, label %block8585, label %block85851
+  br i1 %1215, label %block85, label %block86
 
-block85851:                                       ; preds = %block8585, %block67671
+block86:                                          ; preds = %block85, %block68
   %1216 = load i32, i32* @pointer
   %1217 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1216
   %1218 = load i8, i8* %1217
@@ -1834,9 +1834,9 @@ block85851:                                       ; preds = %block8585, %block67
   %1221 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1220
   %1222 = load i8, i8* %1221
   %1223 = icmp ne i8 %1222, 0
-  br i1 %1223, label %block8787, label %block87871
+  br i1 %1223, label %block87, label %block88
 
-block8787:                                        ; preds = %block8787, %block85851
+block87:                                          ; preds = %block87, %block86
   %1224 = load i32, i32* @pointer
   %1225 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1224
   %1226 = load i8, i8* %1225
@@ -1868,9 +1868,9 @@ block8787:                                        ; preds = %block8787, %block85
   %1245 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1244
   %1246 = load i8, i8* %1245
   %1247 = icmp ne i8 %1246, 0
-  br i1 %1247, label %block8787, label %block87871
+  br i1 %1247, label %block87, label %block88
 
-block87871:                                       ; preds = %block8787, %block85851
+block88:                                          ; preds = %block87, %block86
   %1248 = load i32, i32* @pointer
   %1249 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1248
   %1250 = load i8, i8* %1249
@@ -1888,16 +1888,16 @@ block87871:                                       ; preds = %block8787, %block85
   %1259 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1258
   %1260 = load i8, i8* %1259
   %1261 = icmp ne i8 %1260, 0
-  br i1 %1261, label %block8989, label %block89891
+  br i1 %1261, label %block89, label %block90
 
-block8989:                                        ; preds = %block93931, %block87871
+block89:                                          ; preds = %block94, %block88
   %1262 = load i32, i32* @pointer
   %1263 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1262
   %1264 = load i8, i8* %1263
   %1265 = icmp ne i8 %1264, 0
-  br i1 %1265, label %block9191, label %block91911
+  br i1 %1265, label %block91, label %block92
 
-block89891:                                       ; preds = %block93931, %block87871
+block90:                                          ; preds = %block94, %block88
   %1266 = load i32, i32* @pointer
   %1267 = add i32 %1266, 1
   store i32 %1267, i32* @pointer
@@ -1905,9 +1905,9 @@ block89891:                                       ; preds = %block93931, %block8
   %1269 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1268
   %1270 = load i8, i8* %1269
   %1271 = icmp ne i8 %1270, 0
-  br i1 %1271, label %block115115, label %block1151151
+  br i1 %1271, label %block115, label %block116
 
-block9191:                                        ; preds = %block9191, %block8989
+block91:                                          ; preds = %block91, %block89
   %1272 = load i32, i32* @pointer
   %1273 = add i32 %1272, 1
   store i32 %1273, i32* @pointer
@@ -1924,9 +1924,9 @@ block9191:                                        ; preds = %block9191, %block89
   %1281 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1280
   %1282 = load i8, i8* %1281
   %1283 = icmp ne i8 %1282, 0
-  br i1 %1283, label %block9191, label %block91911
+  br i1 %1283, label %block91, label %block92
 
-block91911:                                       ; preds = %block9191, %block8989
+block92:                                          ; preds = %block91, %block89
   %1284 = load i32, i32* @pointer
   %1285 = sub i32 %1284, 1
   store i32 %1285, i32* @pointer
@@ -1943,9 +1943,9 @@ block91911:                                       ; preds = %block9191, %block89
   %1293 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1292
   %1294 = load i8, i8* %1293
   %1295 = icmp ne i8 %1294, 0
-  br i1 %1295, label %block9393, label %block93931
+  br i1 %1295, label %block93, label %block94
 
-block9393:                                        ; preds = %block1111111, %block91911
+block93:                                          ; preds = %block112, %block92
   %1296 = load i32, i32* @pointer
   %1297 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1296
   %1298 = load i8, i8* %1297
@@ -1955,16 +1955,16 @@ block9393:                                        ; preds = %block1111111, %bloc
   %1301 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1300
   %1302 = load i8, i8* %1301
   %1303 = icmp ne i8 %1302, 0
-  br i1 %1303, label %block9595, label %block95951
+  br i1 %1303, label %block95, label %block96
 
-block93931:                                       ; preds = %block1111111, %block91911
+block94:                                          ; preds = %block112, %block92
   %1304 = load i32, i32* @pointer
   %1305 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1304
   %1306 = load i8, i8* %1305
   %1307 = icmp ne i8 %1306, 0
-  br i1 %1307, label %block8989, label %block89891
+  br i1 %1307, label %block89, label %block90
 
-block9595:                                        ; preds = %block99991, %block9393
+block95:                                          ; preds = %block100, %block93
   %1308 = load i32, i32* @pointer
   %1309 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1308
   %1310 = load i8, i8* %1309
@@ -1987,9 +1987,9 @@ block9595:                                        ; preds = %block99991, %block9
   %1323 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1322
   %1324 = load i8, i8* %1323
   %1325 = icmp ne i8 %1324, 0
-  br i1 %1325, label %block9797, label %block97971
+  br i1 %1325, label %block97, label %block98
 
-block95951:                                       ; preds = %block99991, %block9393
+block96:                                          ; preds = %block100, %block93
   %1326 = load i32, i32* @pointer
   %1327 = add i32 %1326, 1
   store i32 %1327, i32* @pointer
@@ -2002,9 +2002,9 @@ block95951:                                       ; preds = %block99991, %block9
   %1333 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1332
   %1334 = load i8, i8* %1333
   %1335 = icmp ne i8 %1334, 0
-  br i1 %1335, label %block105105, label %block1051051
+  br i1 %1335, label %block105, label %block106
 
-block9797:                                        ; preds = %block9797, %block9595
+block97:                                          ; preds = %block97, %block95
   %1336 = load i32, i32* @pointer
   %1337 = sub i32 %1336, 1
   store i32 %1337, i32* @pointer
@@ -2025,9 +2025,9 @@ block9797:                                        ; preds = %block9797, %block95
   %1349 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1348
   %1350 = load i8, i8* %1349
   %1351 = icmp ne i8 %1350, 0
-  br i1 %1351, label %block9797, label %block97971
+  br i1 %1351, label %block97, label %block98
 
-block97971:                                       ; preds = %block9797, %block9595
+block98:                                          ; preds = %block97, %block95
   %1352 = load i32, i32* @pointer
   %1353 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1352
   %1354 = load i8, i8* %1353
@@ -2045,16 +2045,16 @@ block97971:                                       ; preds = %block9797, %block95
   %1363 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1362
   %1364 = load i8, i8* %1363
   %1365 = icmp ne i8 %1364, 0
-  br i1 %1365, label %block9999, label %block99991
+  br i1 %1365, label %block99, label %block100
 
-block9999:                                        ; preds = %block1031031, %block97971
+block99:                                          ; preds = %block104, %block98
   %1366 = load i32, i32* @pointer
   %1367 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1366
   %1368 = load i8, i8* %1367
   %1369 = icmp ne i8 %1368, 0
-  br i1 %1369, label %block101101, label %block1011011
+  br i1 %1369, label %block101, label %block102
 
-block99991:                                       ; preds = %block1031031, %block97971
+block100:                                         ; preds = %block104, %block98
   %1370 = load i32, i32* @pointer
   %1371 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1370
   %1372 = load i8, i8* %1371
@@ -2086,9 +2086,9 @@ block99991:                                       ; preds = %block1031031, %bloc
   %1391 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1390
   %1392 = load i8, i8* %1391
   %1393 = icmp ne i8 %1392, 0
-  br i1 %1393, label %block9595, label %block95951
+  br i1 %1393, label %block95, label %block96
 
-block101101:                                      ; preds = %block101101, %block9999
+block101:                                         ; preds = %block101, %block99
   %1394 = load i32, i32* @pointer
   %1395 = add i32 %1394, 1
   store i32 %1395, i32* @pointer
@@ -2109,9 +2109,9 @@ block101101:                                      ; preds = %block101101, %block
   %1407 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1406
   %1408 = load i8, i8* %1407
   %1409 = icmp ne i8 %1408, 0
-  br i1 %1409, label %block101101, label %block1011011
+  br i1 %1409, label %block101, label %block102
 
-block1011011:                                     ; preds = %block101101, %block9999
+block102:                                         ; preds = %block101, %block99
   %1410 = load i32, i32* @pointer
   %1411 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1410
   %1412 = load i8, i8* %1411
@@ -2126,9 +2126,9 @@ block1011011:                                     ; preds = %block101101, %block
   %1419 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1418
   %1420 = load i8, i8* %1419
   %1421 = icmp ne i8 %1420, 0
-  br i1 %1421, label %block103103, label %block1031031
+  br i1 %1421, label %block103, label %block104
 
-block103103:                                      ; preds = %block103103, %block1011011
+block103:                                         ; preds = %block103, %block102
   %1422 = load i32, i32* @pointer
   %1423 = sub i32 %1422, 1
   store i32 %1423, i32* @pointer
@@ -2145,9 +2145,9 @@ block103103:                                      ; preds = %block103103, %block
   %1431 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1430
   %1432 = load i8, i8* %1431
   %1433 = icmp ne i8 %1432, 0
-  br i1 %1433, label %block103103, label %block1031031
+  br i1 %1433, label %block103, label %block104
 
-block1031031:                                     ; preds = %block103103, %block1011011
+block104:                                         ; preds = %block103, %block102
   %1434 = load i32, i32* @pointer
   %1435 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1434
   %1436 = load i8, i8* %1435
@@ -2179,9 +2179,9 @@ block1031031:                                     ; preds = %block103103, %block
   %1455 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1454
   %1456 = load i8, i8* %1455
   %1457 = icmp ne i8 %1456, 0
-  br i1 %1457, label %block9999, label %block99991
+  br i1 %1457, label %block99, label %block100
 
-block105105:                                      ; preds = %block1071071, %block95951
+block105:                                         ; preds = %block108, %block96
   %1458 = load i32, i32* @pointer
   %1459 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1458
   %1460 = load i8, i8* %1459
@@ -2191,9 +2191,9 @@ block105105:                                      ; preds = %block1071071, %bloc
   %1463 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1462
   %1464 = load i8, i8* %1463
   %1465 = icmp ne i8 %1464, 0
-  br i1 %1465, label %block107107, label %block1071071
+  br i1 %1465, label %block107, label %block108
 
-block1051051:                                     ; preds = %block1071071, %block95951
+block106:                                         ; preds = %block108, %block96
   %1466 = load i32, i32* @pointer
   %1467 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1466
   %1468 = load i8, i8* %1467
@@ -2206,9 +2206,9 @@ block1051051:                                     ; preds = %block1071071, %bloc
   %1473 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1472
   %1474 = load i8, i8* %1473
   %1475 = icmp ne i8 %1474, 0
-  br i1 %1475, label %block111111, label %block1111111
+  br i1 %1475, label %block111, label %block112
 
-block107107:                                      ; preds = %block1091091, %block105105
+block107:                                         ; preds = %block110, %block105
   %1476 = load i32, i32* @pointer
   %1477 = sub i32 %1476, 1
   store i32 %1477, i32* @pointer
@@ -2221,9 +2221,9 @@ block107107:                                      ; preds = %block1091091, %bloc
   %1483 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1482
   %1484 = load i8, i8* %1483
   %1485 = icmp ne i8 %1484, 0
-  br i1 %1485, label %block109109, label %block1091091
+  br i1 %1485, label %block109, label %block110
 
-block1071071:                                     ; preds = %block1091091, %block105105
+block108:                                         ; preds = %block110, %block105
   %1486 = load i32, i32* @pointer
   %1487 = sub i32 %1486, 1
   store i32 %1487, i32* @pointer
@@ -2239,9 +2239,9 @@ block1071071:                                     ; preds = %block1091091, %bloc
   %1495 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1494
   %1496 = load i8, i8* %1495
   %1497 = icmp ne i8 %1496, 0
-  br i1 %1497, label %block105105, label %block1051051
+  br i1 %1497, label %block105, label %block106
 
-block109109:                                      ; preds = %block109109, %block107107
+block109:                                         ; preds = %block109, %block107
   %1498 = load i32, i32* @pointer
   %1499 = sub i32 %1498, 1
   store i32 %1499, i32* @pointer
@@ -2258,9 +2258,9 @@ block109109:                                      ; preds = %block109109, %block
   %1507 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1506
   %1508 = load i8, i8* %1507
   %1509 = icmp ne i8 %1508, 0
-  br i1 %1509, label %block109109, label %block1091091
+  br i1 %1509, label %block109, label %block110
 
-block1091091:                                     ; preds = %block109109, %block107107
+block110:                                         ; preds = %block109, %block107
   %1510 = load i32, i32* @pointer
   %1511 = add i32 %1510, 1
   store i32 %1511, i32* @pointer
@@ -2268,9 +2268,9 @@ block1091091:                                     ; preds = %block109109, %block
   %1513 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1512
   %1514 = load i8, i8* %1513
   %1515 = icmp ne i8 %1514, 0
-  br i1 %1515, label %block107107, label %block1071071
+  br i1 %1515, label %block107, label %block108
 
-block111111:                                      ; preds = %block1131131, %block1051051
+block111:                                         ; preds = %block114, %block106
   %1516 = load i32, i32* @pointer
   %1517 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1516
   %1518 = load i8, i8* %1517
@@ -2297,9 +2297,9 @@ block111111:                                      ; preds = %block1131131, %bloc
   %1533 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1532
   %1534 = load i8, i8* %1533
   %1535 = icmp ne i8 %1534, 0
-  br i1 %1535, label %block113113, label %block1131131
+  br i1 %1535, label %block113, label %block114
 
-block1111111:                                     ; preds = %block1131131, %block1051051
+block112:                                         ; preds = %block114, %block106
   %1536 = load i32, i32* @pointer
   %1537 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1536
   %1538 = load i8, i8* %1537
@@ -2321,9 +2321,9 @@ block1111111:                                     ; preds = %block1131131, %bloc
   %1549 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1548
   %1550 = load i8, i8* %1549
   %1551 = icmp ne i8 %1550, 0
-  br i1 %1551, label %block9393, label %block93931
+  br i1 %1551, label %block93, label %block94
 
-block113113:                                      ; preds = %block113113, %block111111
+block113:                                         ; preds = %block113, %block111
   %1552 = load i32, i32* @pointer
   %1553 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1552
   %1554 = load i8, i8* %1553
@@ -2333,16 +2333,16 @@ block113113:                                      ; preds = %block113113, %block
   %1557 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1556
   %1558 = load i8, i8* %1557
   %1559 = icmp ne i8 %1558, 0
-  br i1 %1559, label %block113113, label %block1131131
+  br i1 %1559, label %block113, label %block114
 
-block1131131:                                     ; preds = %block113113, %block111111
+block114:                                         ; preds = %block113, %block111
   %1560 = load i32, i32* @pointer
   %1561 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1560
   %1562 = load i8, i8* %1561
   %1563 = icmp ne i8 %1562, 0
-  br i1 %1563, label %block111111, label %block1111111
+  br i1 %1563, label %block111, label %block112
 
-block115115:                                      ; preds = %block115115, %block89891
+block115:                                         ; preds = %block115, %block90
   %1564 = load i32, i32* @pointer
   %1565 = sub i32 %1564, 1
   store i32 %1565, i32* @pointer
@@ -2359,9 +2359,9 @@ block115115:                                      ; preds = %block115115, %block
   %1573 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1572
   %1574 = load i8, i8* %1573
   %1575 = icmp ne i8 %1574, 0
-  br i1 %1575, label %block115115, label %block1151151
+  br i1 %1575, label %block115, label %block116
 
-block1151151:                                     ; preds = %block115115, %block89891
+block116:                                         ; preds = %block115, %block90
   %1576 = load i32, i32* @pointer
   %1577 = add i32 %1576, 1
   store i32 %1577, i32* @pointer
@@ -2369,9 +2369,9 @@ block1151151:                                     ; preds = %block115115, %block
   %1579 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1578
   %1580 = load i8, i8* %1579
   %1581 = icmp ne i8 %1580, 0
-  br i1 %1581, label %block117117, label %block1171171
+  br i1 %1581, label %block117, label %block118
 
-block117117:                                      ; preds = %block1771771, %block1151151
+block117:                                         ; preds = %block178, %block116
   %1582 = load i32, i32* @pointer
   %1583 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1582
   %1584 = load i8, i8* %1583
@@ -2381,9 +2381,9 @@ block117117:                                      ; preds = %block1771771, %bloc
   %1587 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1586
   %1588 = load i8, i8* %1587
   %1589 = icmp ne i8 %1588, 0
-  br i1 %1589, label %block119119, label %block1191191
+  br i1 %1589, label %block119, label %block120
 
-block1171171:                                     ; preds = %block1771771, %block1151151
+block118:                                         ; preds = %block178, %block116
   %1590 = load i32, i32* @pointer
   %1591 = add i32 %1590, 1
   store i32 %1591, i32* @pointer
@@ -2391,9 +2391,9 @@ block1171171:                                     ; preds = %block1771771, %bloc
   %1593 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1592
   %1594 = load i8, i8* %1593
   %1595 = icmp ne i8 %1594, 0
-  br i1 %1595, label %block179179, label %block1791791
+  br i1 %1595, label %block179, label %block180
 
-block119119:                                      ; preds = %block1751751, %block117117
+block119:                                         ; preds = %block176, %block117
   %1596 = load i32, i32* @pointer
   %1597 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1596
   %1598 = load i8, i8* %1597
@@ -2403,9 +2403,9 @@ block119119:                                      ; preds = %block1751751, %bloc
   %1601 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1600
   %1602 = load i8, i8* %1601
   %1603 = icmp ne i8 %1602, 0
-  br i1 %1603, label %block121121, label %block1211211
+  br i1 %1603, label %block121, label %block122
 
-block1191191:                                     ; preds = %block1751751, %block117117
+block120:                                         ; preds = %block176, %block117
   %1604 = load i32, i32* @pointer
   %1605 = add i32 %1604, 1
   store i32 %1605, i32* @pointer
@@ -2413,9 +2413,9 @@ block1191191:                                     ; preds = %block1751751, %bloc
   %1607 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1606
   %1608 = load i8, i8* %1607
   %1609 = icmp ne i8 %1608, 0
-  br i1 %1609, label %block177177, label %block1771771
+  br i1 %1609, label %block177, label %block178
 
-block121121:                                      ; preds = %block1311311, %block119119
+block121:                                         ; preds = %block132, %block119
   %1610 = load i32, i32* @pointer
   %1611 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1610
   %1612 = load i8, i8* %1611
@@ -2445,9 +2445,9 @@ block121121:                                      ; preds = %block1311311, %bloc
   %1631 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1630
   %1632 = load i8, i8* %1631
   %1633 = icmp ne i8 %1632, 0
-  br i1 %1633, label %block123123, label %block1231231
+  br i1 %1633, label %block123, label %block124
 
-block1211211:                                     ; preds = %block1311311, %block119119
+block122:                                         ; preds = %block132, %block119
   %1634 = load i32, i32* @pointer
   %1635 = add i32 %1634, 1
   store i32 %1635, i32* @pointer
@@ -2455,9 +2455,9 @@ block1211211:                                     ; preds = %block1311311, %bloc
   %1637 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1636
   %1638 = load i8, i8* %1637
   %1639 = icmp ne i8 %1638, 0
-  br i1 %1639, label %block147147, label %block1471471
+  br i1 %1639, label %block147, label %block148
 
-block123123:                                      ; preds = %block123123, %block121121
+block123:                                         ; preds = %block123, %block121
   %1640 = load i32, i32* @pointer
   %1641 = add i32 %1640, 1
   store i32 %1641, i32* @pointer
@@ -2513,9 +2513,9 @@ block123123:                                      ; preds = %block123123, %block
   %1681 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1680
   %1682 = load i8, i8* %1681
   %1683 = icmp ne i8 %1682, 0
-  br i1 %1683, label %block123123, label %block1231231
+  br i1 %1683, label %block123, label %block124
 
-block1231231:                                     ; preds = %block123123, %block121121
+block124:                                         ; preds = %block123, %block121
   %1684 = load i32, i32* @pointer
   %1685 = add i32 %1684, 1
   store i32 %1685, i32* @pointer
@@ -2547,9 +2547,9 @@ block1231231:                                     ; preds = %block123123, %block
   %1706 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1705
   %1707 = load i8, i8* %1706
   %1708 = icmp ne i8 %1707, 0
-  br i1 %1708, label %block125125, label %block1251251
+  br i1 %1708, label %block125, label %block126
 
-block125125:                                      ; preds = %block125125, %block1231231
+block125:                                         ; preds = %block125, %block124
   %1709 = load i32, i32* @pointer
   %1710 = sub i32 %1709, 1
   store i32 %1710, i32* @pointer
@@ -2591,9 +2591,9 @@ block125125:                                      ; preds = %block125125, %block
   %1739 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1738
   %1740 = load i8, i8* %1739
   %1741 = icmp ne i8 %1740, 0
-  br i1 %1741, label %block125125, label %block1251251
+  br i1 %1741, label %block125, label %block126
 
-block1251251:                                     ; preds = %block125125, %block1231231
+block126:                                         ; preds = %block125, %block124
   %1742 = load i32, i32* @pointer
   %1743 = sub i32 %1742, 1
   store i32 %1743, i32* @pointer
@@ -2601,9 +2601,9 @@ block1251251:                                     ; preds = %block125125, %block
   %1745 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1744
   %1746 = load i8, i8* %1745
   %1747 = icmp ne i8 %1746, 0
-  br i1 %1747, label %block127127, label %block1271271
+  br i1 %1747, label %block127, label %block128
 
-block127127:                                      ; preds = %block127127, %block1251251
+block127:                                         ; preds = %block127, %block126
   %1748 = load i32, i32* @pointer
   %1749 = sub i32 %1748, 1
   store i32 %1749, i32* @pointer
@@ -2614,9 +2614,9 @@ block127127:                                      ; preds = %block127127, %block
   %1753 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1752
   %1754 = load i8, i8* %1753
   %1755 = icmp ne i8 %1754, 0
-  br i1 %1755, label %block127127, label %block1271271
+  br i1 %1755, label %block127, label %block128
 
-block1271271:                                     ; preds = %block127127, %block1251251
+block128:                                         ; preds = %block127, %block126
   %1756 = load i32, i32* @pointer
   %1757 = add i32 %1756, 1
   store i32 %1757, i32* @pointer
@@ -2627,9 +2627,9 @@ block1271271:                                     ; preds = %block127127, %block
   %1761 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1760
   %1762 = load i8, i8* %1761
   %1763 = icmp ne i8 %1762, 0
-  br i1 %1763, label %block129129, label %block1291291
+  br i1 %1763, label %block129, label %block130
 
-block129129:                                      ; preds = %block129129, %block1271271
+block129:                                         ; preds = %block129, %block128
   %1764 = load i32, i32* @pointer
   %1765 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1764
   %1766 = load i8, i8* %1765
@@ -2639,9 +2639,9 @@ block129129:                                      ; preds = %block129129, %block
   %1769 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1768
   %1770 = load i8, i8* %1769
   %1771 = icmp ne i8 %1770, 0
-  br i1 %1771, label %block129129, label %block1291291
+  br i1 %1771, label %block129, label %block130
 
-block1291291:                                     ; preds = %block129129, %block1271271
+block130:                                         ; preds = %block129, %block128
   %1772 = load i32, i32* @pointer
   %1773 = add i32 %1772, 1
   store i32 %1773, i32* @pointer
@@ -2665,16 +2665,16 @@ block1291291:                                     ; preds = %block129129, %block
   %1787 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1786
   %1788 = load i8, i8* %1787
   %1789 = icmp ne i8 %1788, 0
-  br i1 %1789, label %block131131, label %block1311311
+  br i1 %1789, label %block131, label %block132
 
-block131131:                                      ; preds = %block1351351, %block1291291
+block131:                                         ; preds = %block136, %block130
   %1790 = load i32, i32* @pointer
   %1791 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1790
   %1792 = load i8, i8* %1791
   %1793 = icmp ne i8 %1792, 0
-  br i1 %1793, label %block133133, label %block1331331
+  br i1 %1793, label %block133, label %block134
 
-block1311311:                                     ; preds = %block1351351, %block1291291
+block132:                                         ; preds = %block136, %block130
   %1794 = load i32, i32* @pointer
   %1795 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1794
   %1796 = load i8, i8* %1795
@@ -2698,9 +2698,9 @@ block1311311:                                     ; preds = %block1351351, %bloc
   %1809 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1808
   %1810 = load i8, i8* %1809
   %1811 = icmp ne i8 %1810, 0
-  br i1 %1811, label %block121121, label %block1211211
+  br i1 %1811, label %block121, label %block122
 
-block133133:                                      ; preds = %block133133, %block131131
+block133:                                         ; preds = %block133, %block131
   %1812 = load i32, i32* @pointer
   %1813 = add i32 %1812, 1
   store i32 %1813, i32* @pointer
@@ -2717,9 +2717,9 @@ block133133:                                      ; preds = %block133133, %block
   %1821 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1820
   %1822 = load i8, i8* %1821
   %1823 = icmp ne i8 %1822, 0
-  br i1 %1823, label %block133133, label %block1331331
+  br i1 %1823, label %block133, label %block134
 
-block1331331:                                     ; preds = %block133133, %block131131
+block134:                                         ; preds = %block133, %block131
   %1824 = load i32, i32* @pointer
   %1825 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1824
   %1826 = load i8, i8* %1825
@@ -2729,9 +2729,9 @@ block1331331:                                     ; preds = %block133133, %block
   %1829 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1828
   %1830 = load i8, i8* %1829
   %1831 = icmp ne i8 %1830, 0
-  br i1 %1831, label %block135135, label %block1351351
+  br i1 %1831, label %block135, label %block136
 
-block135135:                                      ; preds = %block1371371, %block1331331
+block135:                                         ; preds = %block138, %block134
   %1832 = load i32, i32* @pointer
   %1833 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1832
   %1834 = load i8, i8* %1833
@@ -2741,9 +2741,9 @@ block135135:                                      ; preds = %block1371371, %bloc
   %1837 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1836
   %1838 = load i8, i8* %1837
   %1839 = icmp ne i8 %1838, 0
-  br i1 %1839, label %block137137, label %block1371371
+  br i1 %1839, label %block137, label %block138
 
-block1351351:                                     ; preds = %block1371371, %block1331331
+block136:                                         ; preds = %block138, %block134
   %1840 = load i32, i32* @pointer
   %1841 = add i32 %1840, 1
   store i32 %1841, i32* @pointer
@@ -2757,9 +2757,9 @@ block1351351:                                     ; preds = %block1371371, %bloc
   %1847 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1846
   %1848 = load i8, i8* %1847
   %1849 = icmp ne i8 %1848, 0
-  br i1 %1849, label %block131131, label %block1311311
+  br i1 %1849, label %block131, label %block132
 
-block137137:                                      ; preds = %block1451451, %block135135
+block137:                                         ; preds = %block146, %block135
   %1850 = load i32, i32* @pointer
   %1851 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1850
   %1852 = load i8, i8* %1851
@@ -2815,9 +2815,9 @@ block137137:                                      ; preds = %block1451451, %bloc
   %1887 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1886
   %1888 = load i8, i8* %1887
   %1889 = icmp ne i8 %1888, 0
-  br i1 %1889, label %block139139, label %block1391391
+  br i1 %1889, label %block139, label %block140
 
-block1371371:                                     ; preds = %block1451451, %block135135
+block138:                                         ; preds = %block146, %block135
   %1890 = load i32, i32* @pointer
   %1891 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1890
   %1892 = load i8, i8* %1891
@@ -2839,9 +2839,9 @@ block1371371:                                     ; preds = %block1451451, %bloc
   %1903 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1902
   %1904 = load i8, i8* %1903
   %1905 = icmp ne i8 %1904, 0
-  br i1 %1905, label %block135135, label %block1351351
+  br i1 %1905, label %block135, label %block136
 
-block139139:                                      ; preds = %block1411411, %block137137
+block139:                                         ; preds = %block142, %block137
   %1906 = load i32, i32* @pointer
   %1907 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1906
   %1908 = load i8, i8* %1907
@@ -2851,9 +2851,9 @@ block139139:                                      ; preds = %block1411411, %bloc
   %1911 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1910
   %1912 = load i8, i8* %1911
   %1913 = icmp ne i8 %1912, 0
-  br i1 %1913, label %block141141, label %block1411411
+  br i1 %1913, label %block141, label %block142
 
-block1391391:                                     ; preds = %block1411411, %block137137
+block140:                                         ; preds = %block142, %block137
   %1914 = load i32, i32* @pointer
   %1915 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1914
   %1916 = load i8, i8* %1915
@@ -2868,9 +2868,9 @@ block1391391:                                     ; preds = %block1411411, %bloc
   %1923 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1922
   %1924 = load i8, i8* %1923
   %1925 = icmp ne i8 %1924, 0
-  br i1 %1925, label %block145145, label %block1451451
+  br i1 %1925, label %block145, label %block146
 
-block141141:                                      ; preds = %block1431431, %block139139
+block141:                                         ; preds = %block144, %block139
   %1926 = load i32, i32* @pointer
   %1927 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1926
   %1928 = load i8, i8* %1927
@@ -2902,9 +2902,9 @@ block141141:                                      ; preds = %block1431431, %bloc
   %1947 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1946
   %1948 = load i8, i8* %1947
   %1949 = icmp ne i8 %1948, 0
-  br i1 %1949, label %block143143, label %block1431431
+  br i1 %1949, label %block143, label %block144
 
-block1411411:                                     ; preds = %block1431431, %block139139
+block142:                                         ; preds = %block144, %block139
   %1950 = load i32, i32* @pointer
   %1951 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1950
   %1952 = load i8, i8* %1951
@@ -2931,9 +2931,9 @@ block1411411:                                     ; preds = %block1431431, %bloc
   %1967 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1966
   %1968 = load i8, i8* %1967
   %1969 = icmp ne i8 %1968, 0
-  br i1 %1969, label %block139139, label %block1391391
+  br i1 %1969, label %block139, label %block140
 
-block143143:                                      ; preds = %block143143, %block141141
+block143:                                         ; preds = %block143, %block141
   %1970 = load i32, i32* @pointer
   %1971 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1970
   %1972 = load i8, i8* %1971
@@ -2943,16 +2943,16 @@ block143143:                                      ; preds = %block143143, %block
   %1975 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1974
   %1976 = load i8, i8* %1975
   %1977 = icmp ne i8 %1976, 0
-  br i1 %1977, label %block143143, label %block1431431
+  br i1 %1977, label %block143, label %block144
 
-block1431431:                                     ; preds = %block143143, %block141141
+block144:                                         ; preds = %block143, %block141
   %1978 = load i32, i32* @pointer
   %1979 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1978
   %1980 = load i8, i8* %1979
   %1981 = icmp ne i8 %1980, 0
-  br i1 %1981, label %block141141, label %block1411411
+  br i1 %1981, label %block141, label %block142
 
-block145145:                                      ; preds = %block145145, %block1391391
+block145:                                         ; preds = %block145, %block140
   %1982 = load i32, i32* @pointer
   %1983 = sub i32 %1982, 1
   store i32 %1983, i32* @pointer
@@ -2969,16 +2969,16 @@ block145145:                                      ; preds = %block145145, %block
   %1991 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1990
   %1992 = load i8, i8* %1991
   %1993 = icmp ne i8 %1992, 0
-  br i1 %1993, label %block145145, label %block1451451
+  br i1 %1993, label %block145, label %block146
 
-block1451451:                                     ; preds = %block145145, %block1391391
+block146:                                         ; preds = %block145, %block140
   %1994 = load i32, i32* @pointer
   %1995 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1994
   %1996 = load i8, i8* %1995
   %1997 = icmp ne i8 %1996, 0
-  br i1 %1997, label %block137137, label %block1371371
+  br i1 %1997, label %block137, label %block138
 
-block147147:                                      ; preds = %block1491491, %block1211211
+block147:                                         ; preds = %block150, %block122
   %1998 = load i32, i32* @pointer
   %1999 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %1998
   %2000 = load i8, i8* %1999
@@ -2988,9 +2988,9 @@ block147147:                                      ; preds = %block1491491, %bloc
   %2003 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2002
   %2004 = load i8, i8* %2003
   %2005 = icmp ne i8 %2004, 0
-  br i1 %2005, label %block149149, label %block1491491
+  br i1 %2005, label %block149, label %block150
 
-block1471471:                                     ; preds = %block1491491, %block1211211
+block148:                                         ; preds = %block150, %block122
   %2006 = load i32, i32* @pointer
   %2007 = add i32 %2006, 1
   store i32 %2007, i32* @pointer
@@ -3007,9 +3007,9 @@ block1471471:                                     ; preds = %block1491491, %bloc
   %2015 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2014
   %2016 = load i8, i8* %2015
   %2017 = icmp ne i8 %2016, 0
-  br i1 %2017, label %block167167, label %block1671671
+  br i1 %2017, label %block167, label %block168
 
-block149149:                                      ; preds = %block1631631, %block147147
+block149:                                         ; preds = %block164, %block147
   %2018 = load i32, i32* @pointer
   %2019 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2018
   %2020 = load i8, i8* %2019
@@ -3022,9 +3022,9 @@ block149149:                                      ; preds = %block1631631, %bloc
   %2025 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2024
   %2026 = load i8, i8* %2025
   %2027 = icmp ne i8 %2026, 0
-  br i1 %2027, label %block151151, label %block1511511
+  br i1 %2027, label %block151, label %block152
 
-block1491491:                                     ; preds = %block1631631, %block147147
+block150:                                         ; preds = %block164, %block147
   %2028 = load i32, i32* @pointer
   %2029 = sub i32 %2028, 1
   store i32 %2029, i32* @pointer
@@ -3032,9 +3032,9 @@ block1491491:                                     ; preds = %block1631631, %bloc
   %2031 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2030
   %2032 = load i8, i8* %2031
   %2033 = icmp ne i8 %2032, 0
-  br i1 %2033, label %block147147, label %block1471471
+  br i1 %2033, label %block147, label %block148
 
-block151151:                                      ; preds = %block1611611, %block149149
+block151:                                         ; preds = %block162, %block149
   %2034 = load i32, i32* @pointer
   %2035 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2034
   %2036 = load i8, i8* %2035
@@ -3049,9 +3049,9 @@ block151151:                                      ; preds = %block1611611, %bloc
   %2043 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2042
   %2044 = load i8, i8* %2043
   %2045 = icmp ne i8 %2044, 0
-  br i1 %2045, label %block153153, label %block1531531
+  br i1 %2045, label %block153, label %block154
 
-block1511511:                                     ; preds = %block1611611, %block149149
+block152:                                         ; preds = %block162, %block149
   %2046 = load i32, i32* @pointer
   %2047 = sub i32 %2046, 1
   store i32 %2047, i32* @pointer
@@ -3068,9 +3068,9 @@ block1511511:                                     ; preds = %block1611611, %bloc
   %2055 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2054
   %2056 = load i8, i8* %2055
   %2057 = icmp ne i8 %2056, 0
-  br i1 %2057, label %block163163, label %block1631631
+  br i1 %2057, label %block163, label %block164
 
-block153153:                                      ; preds = %block153153, %block151151
+block153:                                         ; preds = %block153, %block151
   %2058 = load i32, i32* @pointer
   %2059 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2058
   %2060 = load i8, i8* %2059
@@ -3107,9 +3107,9 @@ block153153:                                      ; preds = %block153153, %block
   %2083 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2082
   %2084 = load i8, i8* %2083
   %2085 = icmp ne i8 %2084, 0
-  br i1 %2085, label %block153153, label %block1531531
+  br i1 %2085, label %block153, label %block154
 
-block1531531:                                     ; preds = %block153153, %block151151
+block154:                                         ; preds = %block153, %block151
   %2086 = load i32, i32* @pointer
   %2087 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2086
   %2088 = load i8, i8* %2087
@@ -3122,9 +3122,9 @@ block1531531:                                     ; preds = %block153153, %block
   %2093 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2092
   %2094 = load i8, i8* %2093
   %2095 = icmp ne i8 %2094, 0
-  br i1 %2095, label %block155155, label %block1551551
+  br i1 %2095, label %block155, label %block156
 
-block155155:                                      ; preds = %block1571571, %block1531531
+block155:                                         ; preds = %block158, %block154
   %2096 = load i32, i32* @pointer
   %2097 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2096
   %2098 = load i8, i8* %2097
@@ -3134,9 +3134,9 @@ block155155:                                      ; preds = %block1571571, %bloc
   %2101 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2100
   %2102 = load i8, i8* %2101
   %2103 = icmp ne i8 %2102, 0
-  br i1 %2103, label %block157157, label %block1571571
+  br i1 %2103, label %block157, label %block158
 
-block1551551:                                     ; preds = %block1571571, %block1531531
+block156:                                         ; preds = %block158, %block154
   %2104 = load i32, i32* @pointer
   %2105 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2104
   %2106 = load i8, i8* %2105
@@ -3159,9 +3159,9 @@ block1551551:                                     ; preds = %block1571571, %bloc
   %2119 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2118
   %2120 = load i8, i8* %2119
   %2121 = icmp ne i8 %2120, 0
-  br i1 %2121, label %block161161, label %block1611611
+  br i1 %2121, label %block161, label %block162
 
-block157157:                                      ; preds = %block1591591, %block155155
+block157:                                         ; preds = %block160, %block155
   %2122 = load i32, i32* @pointer
   %2123 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2122
   %2124 = load i8, i8* %2123
@@ -3171,16 +3171,16 @@ block157157:                                      ; preds = %block1591591, %bloc
   %2127 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2126
   %2128 = load i8, i8* %2127
   %2129 = icmp ne i8 %2128, 0
-  br i1 %2129, label %block159159, label %block1591591
+  br i1 %2129, label %block159, label %block160
 
-block1571571:                                     ; preds = %block1591591, %block155155
+block158:                                         ; preds = %block160, %block155
   %2130 = load i32, i32* @pointer
   %2131 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2130
   %2132 = load i8, i8* %2131
   %2133 = icmp ne i8 %2132, 0
-  br i1 %2133, label %block155155, label %block1551551
+  br i1 %2133, label %block155, label %block156
 
-block159159:                                      ; preds = %block159159, %block157157
+block159:                                         ; preds = %block159, %block157
   %2134 = load i32, i32* @pointer
   %2135 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2134
   %2136 = load i8, i8* %2135
@@ -3217,9 +3217,9 @@ block159159:                                      ; preds = %block159159, %block
   %2159 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2158
   %2160 = load i8, i8* %2159
   %2161 = icmp ne i8 %2160, 0
-  br i1 %2161, label %block159159, label %block1591591
+  br i1 %2161, label %block159, label %block160
 
-block1591591:                                     ; preds = %block159159, %block157157
+block160:                                         ; preds = %block159, %block157
   %2162 = load i32, i32* @pointer
   %2163 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2162
   %2164 = load i8, i8* %2163
@@ -3246,9 +3246,9 @@ block1591591:                                     ; preds = %block159159, %block
   %2179 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2178
   %2180 = load i8, i8* %2179
   %2181 = icmp ne i8 %2180, 0
-  br i1 %2181, label %block157157, label %block1571571
+  br i1 %2181, label %block157, label %block158
 
-block161161:                                      ; preds = %block161161, %block1551551
+block161:                                         ; preds = %block161, %block156
   %2182 = load i32, i32* @pointer
   %2183 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2182
   %2184 = load i8, i8* %2183
@@ -3275,9 +3275,9 @@ block161161:                                      ; preds = %block161161, %block
   %2199 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2198
   %2200 = load i8, i8* %2199
   %2201 = icmp ne i8 %2200, 0
-  br i1 %2201, label %block161161, label %block1611611
+  br i1 %2201, label %block161, label %block162
 
-block1611611:                                     ; preds = %block161161, %block1551551
+block162:                                         ; preds = %block161, %block156
   %2202 = load i32, i32* @pointer
   %2203 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2202
   %2204 = load i8, i8* %2203
@@ -3304,9 +3304,9 @@ block1611611:                                     ; preds = %block161161, %block
   %2219 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2218
   %2220 = load i8, i8* %2219
   %2221 = icmp ne i8 %2220, 0
-  br i1 %2221, label %block151151, label %block1511511
+  br i1 %2221, label %block151, label %block152
 
-block163163:                                      ; preds = %block1651651, %block1511511
+block163:                                         ; preds = %block166, %block152
   %2222 = load i32, i32* @pointer
   %2223 = add i32 %2222, 1
   store i32 %2223, i32* @pointer
@@ -3314,9 +3314,9 @@ block163163:                                      ; preds = %block1651651, %bloc
   %2225 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2224
   %2226 = load i8, i8* %2225
   %2227 = icmp ne i8 %2226, 0
-  br i1 %2227, label %block165165, label %block1651651
+  br i1 %2227, label %block165, label %block166
 
-block1631631:                                     ; preds = %block1651651, %block1511511
+block164:                                         ; preds = %block166, %block152
   %2228 = load i32, i32* @pointer
   %2229 = add i32 %2228, 1
   store i32 %2229, i32* @pointer
@@ -3335,9 +3335,9 @@ block1631631:                                     ; preds = %block1651651, %bloc
   %2239 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2238
   %2240 = load i8, i8* %2239
   %2241 = icmp ne i8 %2240, 0
-  br i1 %2241, label %block149149, label %block1491491
+  br i1 %2241, label %block149, label %block150
 
-block165165:                                      ; preds = %block165165, %block163163
+block165:                                         ; preds = %block165, %block163
   %2242 = load i32, i32* @pointer
   %2243 = sub i32 %2242, 1
   store i32 %2243, i32* @pointer
@@ -3354,9 +3354,9 @@ block165165:                                      ; preds = %block165165, %block
   %2251 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2250
   %2252 = load i8, i8* %2251
   %2253 = icmp ne i8 %2252, 0
-  br i1 %2253, label %block165165, label %block1651651
+  br i1 %2253, label %block165, label %block166
 
-block1651651:                                     ; preds = %block165165, %block163163
+block166:                                         ; preds = %block165, %block163
   %2254 = load i32, i32* @pointer
   %2255 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2254
   %2256 = load i8, i8* %2255
@@ -3369,9 +3369,9 @@ block1651651:                                     ; preds = %block165165, %block
   %2261 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2260
   %2262 = load i8, i8* %2261
   %2263 = icmp ne i8 %2262, 0
-  br i1 %2263, label %block163163, label %block1631631
+  br i1 %2263, label %block163, label %block164
 
-block167167:                                      ; preds = %block1731731, %block1471471
+block167:                                         ; preds = %block174, %block148
   %2264 = load i32, i32* @pointer
   %2265 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2264
   %2266 = load i8, i8* %2265
@@ -3386,9 +3386,9 @@ block167167:                                      ; preds = %block1731731, %bloc
   %2273 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2272
   %2274 = load i8, i8* %2273
   %2275 = icmp ne i8 %2274, 0
-  br i1 %2275, label %block169169, label %block1691691
+  br i1 %2275, label %block169, label %block170
 
-block1671671:                                     ; preds = %block1731731, %block1471471
+block168:                                         ; preds = %block174, %block148
   %2276 = load i32, i32* @pointer
   %2277 = sub i32 %2276, 1
   store i32 %2277, i32* @pointer
@@ -3408,9 +3408,9 @@ block1671671:                                     ; preds = %block1731731, %bloc
   %2287 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2286
   %2288 = load i8, i8* %2287
   %2289 = icmp ne i8 %2288, 0
-  br i1 %2289, label %block175175, label %block1751751
+  br i1 %2289, label %block175, label %block176
 
-block169169:                                      ; preds = %block169169, %block167167
+block169:                                         ; preds = %block169, %block167
   %2290 = load i32, i32* @pointer
   %2291 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2290
   %2292 = load i8, i8* %2291
@@ -3447,9 +3447,9 @@ block169169:                                      ; preds = %block169169, %block
   %2315 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2314
   %2316 = load i8, i8* %2315
   %2317 = icmp ne i8 %2316, 0
-  br i1 %2317, label %block169169, label %block1691691
+  br i1 %2317, label %block169, label %block170
 
-block1691691:                                     ; preds = %block169169, %block167167
+block170:                                         ; preds = %block169, %block167
   %2318 = load i32, i32* @pointer
   %2319 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2318
   %2320 = load i8, i8* %2319
@@ -3472,9 +3472,9 @@ block1691691:                                     ; preds = %block169169, %block
   %2333 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2332
   %2334 = load i8, i8* %2333
   %2335 = icmp ne i8 %2334, 0
-  br i1 %2335, label %block171171, label %block1711711
+  br i1 %2335, label %block171, label %block172
 
-block171171:                                      ; preds = %block171171, %block1691691
+block171:                                         ; preds = %block171, %block170
   %2336 = load i32, i32* @pointer
   %2337 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2336
   %2338 = load i8, i8* %2337
@@ -3516,9 +3516,9 @@ block171171:                                      ; preds = %block171171, %block
   %2365 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2364
   %2366 = load i8, i8* %2365
   %2367 = icmp ne i8 %2366, 0
-  br i1 %2367, label %block171171, label %block1711711
+  br i1 %2367, label %block171, label %block172
 
-block1711711:                                     ; preds = %block171171, %block1691691
+block172:                                         ; preds = %block171, %block170
   %2368 = load i32, i32* @pointer
   %2369 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2368
   %2370 = load i8, i8* %2369
@@ -3536,9 +3536,9 @@ block1711711:                                     ; preds = %block171171, %block
   %2379 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2378
   %2380 = load i8, i8* %2379
   %2381 = icmp ne i8 %2380, 0
-  br i1 %2381, label %block173173, label %block1731731
+  br i1 %2381, label %block173, label %block174
 
-block173173:                                      ; preds = %block173173, %block1711711
+block173:                                         ; preds = %block173, %block172
   %2382 = load i32, i32* @pointer
   %2383 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2382
   %2384 = load i8, i8* %2383
@@ -3565,9 +3565,9 @@ block173173:                                      ; preds = %block173173, %block
   %2399 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2398
   %2400 = load i8, i8* %2399
   %2401 = icmp ne i8 %2400, 0
-  br i1 %2401, label %block173173, label %block1731731
+  br i1 %2401, label %block173, label %block174
 
-block1731731:                                     ; preds = %block173173, %block1711711
+block174:                                         ; preds = %block173, %block172
   %2402 = load i32, i32* @pointer
   %2403 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2402
   %2404 = load i8, i8* %2403
@@ -3594,9 +3594,9 @@ block1731731:                                     ; preds = %block173173, %block
   %2419 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2418
   %2420 = load i8, i8* %2419
   %2421 = icmp ne i8 %2420, 0
-  br i1 %2421, label %block167167, label %block1671671
+  br i1 %2421, label %block167, label %block168
 
-block175175:                                      ; preds = %block175175, %block1671671
+block175:                                         ; preds = %block175, %block168
   %2422 = load i32, i32* @pointer
   %2423 = sub i32 %2422, 1
   store i32 %2423, i32* @pointer
@@ -3613,9 +3613,9 @@ block175175:                                      ; preds = %block175175, %block
   %2431 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2430
   %2432 = load i8, i8* %2431
   %2433 = icmp ne i8 %2432, 0
-  br i1 %2433, label %block175175, label %block1751751
+  br i1 %2433, label %block175, label %block176
 
-block1751751:                                     ; preds = %block175175, %block1671671
+block176:                                         ; preds = %block175, %block168
   %2434 = load i32, i32* @pointer
   %2435 = sub i32 %2434, 1
   store i32 %2435, i32* @pointer
@@ -3623,9 +3623,9 @@ block1751751:                                     ; preds = %block175175, %block
   %2437 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2436
   %2438 = load i8, i8* %2437
   %2439 = icmp ne i8 %2438, 0
-  br i1 %2439, label %block119119, label %block1191191
+  br i1 %2439, label %block119, label %block120
 
-block177177:                                      ; preds = %block177177, %block1191191
+block177:                                         ; preds = %block177, %block120
   %2440 = load i32, i32* @pointer
   %2441 = add i32 %2440, 1
   store i32 %2441, i32* @pointer
@@ -3657,9 +3657,9 @@ block177177:                                      ; preds = %block177177, %block
   %2461 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2460
   %2462 = load i8, i8* %2461
   %2463 = icmp ne i8 %2462, 0
-  br i1 %2463, label %block177177, label %block1771771
+  br i1 %2463, label %block177, label %block178
 
-block1771771:                                     ; preds = %block177177, %block1191191
+block178:                                         ; preds = %block177, %block120
   %2464 = load i32, i32* @pointer
   %2465 = sub i32 %2464, 1
   store i32 %2465, i32* @pointer
@@ -3667,9 +3667,9 @@ block1771771:                                     ; preds = %block177177, %block
   %2467 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2466
   %2468 = load i8, i8* %2467
   %2469 = icmp ne i8 %2468, 0
-  br i1 %2469, label %block117117, label %block1171171
+  br i1 %2469, label %block117, label %block118
 
-block179179:                                      ; preds = %block1891891, %block1171171
+block179:                                         ; preds = %block190, %block118
   %2470 = load i32, i32* @pointer
   %2471 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2470
   %2472 = load i8, i8* %2471
@@ -3682,9 +3682,9 @@ block179179:                                      ; preds = %block1891891, %bloc
   %2477 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2476
   %2478 = load i8, i8* %2477
   %2479 = icmp ne i8 %2478, 0
-  br i1 %2479, label %block181181, label %block1811811
+  br i1 %2479, label %block181, label %block182
 
-block1791791:                                     ; preds = %block1891891, %block1171171
+block180:                                         ; preds = %block190, %block118
   %2480 = load i32, i32* @pointer
   %2481 = add i32 %2480, 1
   store i32 %2481, i32* @pointer
@@ -3695,9 +3695,9 @@ block1791791:                                     ; preds = %block1891891, %bloc
   %2485 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2484
   %2486 = load i8, i8* %2485
   %2487 = icmp ne i8 %2486, 0
-  br i1 %2487, label %block6565, label %block65651
+  br i1 %2487, label %block65, label %block66
 
-block181181:                                      ; preds = %block1871871, %block179179
+block181:                                         ; preds = %block188, %block179
   %2488 = load i32, i32* @pointer
   %2489 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2488
   %2490 = load i8, i8* %2489
@@ -3712,9 +3712,9 @@ block181181:                                      ; preds = %block1871871, %bloc
   %2497 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2496
   %2498 = load i8, i8* %2497
   %2499 = icmp ne i8 %2498, 0
-  br i1 %2499, label %block183183, label %block1831831
+  br i1 %2499, label %block183, label %block184
 
-block1811811:                                     ; preds = %block1871871, %block179179
+block182:                                         ; preds = %block188, %block179
   %2500 = load i32, i32* @pointer
   %2501 = sub i32 %2500, 1
   store i32 %2501, i32* @pointer
@@ -3728,9 +3728,9 @@ block1811811:                                     ; preds = %block1871871, %bloc
   %2507 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2506
   %2508 = load i8, i8* %2507
   %2509 = icmp ne i8 %2508, 0
-  br i1 %2509, label %block189189, label %block1891891
+  br i1 %2509, label %block189, label %block190
 
-block183183:                                      ; preds = %block183183, %block181181
+block183:                                         ; preds = %block183, %block181
   %2510 = load i32, i32* @pointer
   %2511 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2510
   %2512 = load i8, i8* %2511
@@ -3767,9 +3767,9 @@ block183183:                                      ; preds = %block183183, %block
   %2535 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2534
   %2536 = load i8, i8* %2535
   %2537 = icmp ne i8 %2536, 0
-  br i1 %2537, label %block183183, label %block1831831
+  br i1 %2537, label %block183, label %block184
 
-block1831831:                                     ; preds = %block183183, %block181181
+block184:                                         ; preds = %block183, %block181
   %2538 = load i32, i32* @pointer
   %2539 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2538
   %2540 = load i8, i8* %2539
@@ -3792,9 +3792,9 @@ block1831831:                                     ; preds = %block183183, %block
   %2553 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2552
   %2554 = load i8, i8* %2553
   %2555 = icmp ne i8 %2554, 0
-  br i1 %2555, label %block185185, label %block1851851
+  br i1 %2555, label %block185, label %block186
 
-block185185:                                      ; preds = %block185185, %block1831831
+block185:                                         ; preds = %block185, %block184
   %2556 = load i32, i32* @pointer
   %2557 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2556
   %2558 = load i8, i8* %2557
@@ -3836,9 +3836,9 @@ block185185:                                      ; preds = %block185185, %block
   %2585 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2584
   %2586 = load i8, i8* %2585
   %2587 = icmp ne i8 %2586, 0
-  br i1 %2587, label %block185185, label %block1851851
+  br i1 %2587, label %block185, label %block186
 
-block1851851:                                     ; preds = %block185185, %block1831831
+block186:                                         ; preds = %block185, %block184
   %2588 = load i32, i32* @pointer
   %2589 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2588
   %2590 = load i8, i8* %2589
@@ -3856,9 +3856,9 @@ block1851851:                                     ; preds = %block185185, %block
   %2599 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2598
   %2600 = load i8, i8* %2599
   %2601 = icmp ne i8 %2600, 0
-  br i1 %2601, label %block187187, label %block1871871
+  br i1 %2601, label %block187, label %block188
 
-block187187:                                      ; preds = %block187187, %block1851851
+block187:                                         ; preds = %block187, %block186
   %2602 = load i32, i32* @pointer
   %2603 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2602
   %2604 = load i8, i8* %2603
@@ -3885,9 +3885,9 @@ block187187:                                      ; preds = %block187187, %block
   %2619 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2618
   %2620 = load i8, i8* %2619
   %2621 = icmp ne i8 %2620, 0
-  br i1 %2621, label %block187187, label %block1871871
+  br i1 %2621, label %block187, label %block188
 
-block1871871:                                     ; preds = %block187187, %block1851851
+block188:                                         ; preds = %block187, %block186
   %2622 = load i32, i32* @pointer
   %2623 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2622
   %2624 = load i8, i8* %2623
@@ -3914,9 +3914,9 @@ block1871871:                                     ; preds = %block187187, %block
   %2639 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2638
   %2640 = load i8, i8* %2639
   %2641 = icmp ne i8 %2640, 0
-  br i1 %2641, label %block181181, label %block1811811
+  br i1 %2641, label %block181, label %block182
 
-block189189:                                      ; preds = %block189189, %block1811811
+block189:                                         ; preds = %block189, %block182
   %2642 = load i32, i32* @pointer
   %2643 = sub i32 %2642, 1
   store i32 %2643, i32* @pointer
@@ -3933,12 +3933,12 @@ block189189:                                      ; preds = %block189189, %block
   %2651 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2650
   %2652 = load i8, i8* %2651
   %2653 = icmp ne i8 %2652, 0
-  br i1 %2653, label %block189189, label %block1891891
+  br i1 %2653, label %block189, label %block190
 
-block1891891:                                     ; preds = %block189189, %block1811811
+block190:                                         ; preds = %block189, %block182
   %2654 = load i32, i32* @pointer
   %2655 = getelementptr [262144 x i8], [262144 x i8]* @tape, i32 0, i32 %2654
   %2656 = load i8, i8* %2655
   %2657 = icmp ne i8 %2656, 0
-  br i1 %2657, label %block179179, label %block1791791
+  br i1 %2657, label %block179, label %block180
 }
