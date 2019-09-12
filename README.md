@@ -9,7 +9,8 @@ Currently done features:
 - [x] llvm ir generation
 
 ## TODO
-- [ ] fix bugs preventing some programs from working
+- [ ] files as input
+- [ ] cli
 
 ## Usage
 Use `cat hw.bf | stack run && lli out.ll` to compile and execute an bf file.
