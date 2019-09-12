@@ -257,9 +257,7 @@ brainfuckExprs = foldr ((>>) . brainfuckExpr) (return ())
 -- Expressions
 brainfuckExpr :: Expr -> Codegen ()
 brainfuckExpr Write = do
-    i   <- load pointer
-    p_c <- getArrayElement tape i
-    c   <- load p_c
+    c <- currentTapeValue
     call putCharFn T.i32 [c]
     return ()
 
@@ -278,20 +276,6 @@ brainfuckExpr PosDecr = do
     i  <- load pointer
     i' <- sub i (constI32 1)
     store pointer i'
-
-brainfuckExpr DataIncr = do
-    i   <- load pointer
-    p_d <- getArrayElement tape i
-    d   <- load p_d
-    d'  <- add d (constI8 1)
-    store p_d d'
-
-brainfuckExpr DataDecr = do
-    i   <- load pointer
-    p_d <- getArrayElement tape i
-    d   <- load p_d
-    d'  <- sub d (constI8 1)
-    store p_d d'
 
 brainfuckExpr (Loop exprs) = do
     -- create block for the loop and the rest code after the loop in this 'scope'
@@ -312,6 +296,17 @@ brainfuckExpr (Loop exprs) = do
     -- future commands get appended to the second outer block
     setBlock outerBlock
     return ()
+
+brainfuckExpr expr = do
+    i   <- load pointer
+    p_d <- getArrayElement tape i
+    d   <- load p_d
+    d'  <- op d (constI8 1)
+    store p_d d'
+  where
+    op = case expr of
+        DataIncr -> add
+        DataDecr -> sub
 
 -- helper
 currentTapeValue :: Codegen Operand
