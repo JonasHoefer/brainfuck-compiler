@@ -209,6 +209,47 @@ constI32 i = ConstantOperand $ C.Int 32 i
 constI8 :: Integer -> Operand
 constI8 i = ConstantOperand $ C.Int 8 i
 
+-- LLVM Operations
+br :: Name -> Codegen (Named Terminator)
+br name = terminator $ Do $ Br name []
+
+condBr :: Operand -> Name -> Name -> Codegen (Named Terminator)
+condBr cond t f = terminator $ Do $ CondBr cond t f []
+
+icmp :: Operand -> IntegerPredicate -> Operand -> Codegen Operand
+icmp l p r = addInstruction (ICmp p l r []) T.i1
+
+call :: Operand -> Type -> [Operand] -> Codegen Operand
+call fn t args =
+    addInstruction (Call Nothing CC.C [] (Right fn) (toArgs args) [] []) t
+
+store :: Operand -> Operand -> Codegen ()
+store ptr val = addStatement $ Store False ptr val Nothing 0 []
+
+load :: Operand -> Codegen Operand
+load ptr = addInstruction (Load False ptr Nothing 0 []) retType
+    where retType = T.getElementType . T.typeOf $ ptr
+
+add :: Operand -> Operand -> Codegen Operand
+add l r = addInstruction (Add False False l r []) T.i8
+
+sub :: Operand -> Operand -> Codegen Operand
+sub l r = addInstruction (Sub False False l r []) T.i8
+
+getArrayElement :: Operand -> Operand -> Codegen Operand
+getArrayElement arr ind = addInstruction instr retType
+  where
+    instr   = GetElementPtr False arr [constI32 0, ind] []
+    retType = PointerType T.i8 (AddrSpace 0)
+
+readTape :: Codegen Operand
+readTape = load pointer >>= getArrayElement tape >>= load
+
+writeTape :: Operand -> Codegen ()
+writeTape val = join (store <$> pure val <*> elem)
+    where elem = load pointer >>= getArrayElement tape
+
+
 -- high level generations
 brainfuckExprs :: [Expr] -> Codegen ()
 brainfuckExprs = foldr ((>>) . brainfuckExpr) (return ())
@@ -258,68 +299,29 @@ brainfuckExpr (Loop exprs) = do
     innerBlock <- addBlock $ toShortByteString $ "block" ++ show blockCount
     outerBlock <- addBlock $ toShortByteString $ "block" ++ show blockCount
 
-    -- get current value
-    i          <- load pointer
-    p_d        <- getArrayElement tape i
-    d          <- load p_d
-
     -- jump based on the current value form first outer block
-    cond       <- icmp d NE (constI8 0)
-    condBr cond innerBlock outerBlock
+    jumpNonZero innerBlock outerBlock
 
     -- generate loop code
     setBlock innerBlock
     brainfuckExprs exprs
 
-    -- get current value
-    i    <- load pointer
-    p_d  <- getArrayElement tape i
-    d    <- load p_d
-
     -- jump based on the current value form first outer block
-    cond <- icmp d NE (constI8 0)
-    condBr cond innerBlock outerBlock
+    jumpNonZero innerBlock outerBlock
 
     -- future commands get appended to the second outer block
     setBlock outerBlock
     return ()
 
--- LLVM Operations
-br :: Name -> Codegen (Named Terminator)
-br name = terminator $ Do $ Br name []
+-- helper
+currentTapeValue :: Codegen Operand
+currentTapeValue = do
+    i   <- load pointer
+    p_d <- getArrayElement tape i
+    load p_d
 
-condBr :: Operand -> Name -> Name -> Codegen (Named Terminator)
-condBr cond t f = terminator $ Do $ CondBr cond t f []
-
-icmp :: Operand -> IntegerPredicate -> Operand -> Codegen Operand
-icmp l p r = addInstruction (ICmp p l r []) T.i1
-
-call :: Operand -> Type -> [Operand] -> Codegen Operand
-call fn t args =
-    addInstruction (Call Nothing CC.C [] (Right fn) (toArgs args) [] []) t
-
-store :: Operand -> Operand -> Codegen ()
-store ptr val = addStatement $ Store False ptr val Nothing 0 []
-
-load :: Operand -> Codegen Operand
-load ptr = addInstruction (Load False ptr Nothing 0 []) retType
-    where retType = T.getElementType . T.typeOf $ ptr
-
-add :: Operand -> Operand -> Codegen Operand
-add l r = addInstruction (Add False False l r []) T.i8
-
-sub :: Operand -> Operand -> Codegen Operand
-sub l r = addInstruction (Sub False False l r []) T.i8
-
-getArrayElement :: Operand -> Operand -> Codegen Operand
-getArrayElement arr ind = addInstruction instr retType
-  where
-    instr   = GetElementPtr False arr [constI32 0, ind] []
-    retType = PointerType T.i8 (AddrSpace 0)
-
-readTape :: Codegen Operand
-readTape = load pointer >>= getArrayElement tape >>= load
-
-writeTape :: Operand -> Codegen ()
-writeTape val = join (store <$> pure val <*> elem)
-    where elem = load pointer >>= getArrayElement tape
+jumpNonZero :: Name -> Name -> Codegen (Named Terminator)
+jumpNonZero t f = do
+    d    <- currentTapeValue
+    cond <- icmp d NE (constI8 0)
+    condBr cond t f
