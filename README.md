@@ -7,6 +7,8 @@ Currently done features:
 - [x] Parser
 - [x] Interpreter for testing purposes 
 - [x] llvm ir generation
+
+## TODO
 - [ ] fix bugs preventing some programs from working
 
 ## Usage
