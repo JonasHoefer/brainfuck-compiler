@@ -203,6 +203,9 @@ getCharFn = externf
 constI32 :: Integer -> Operand
 constI32 i = ConstantOperand $ C.Int 32 i
 
+constI8 :: Integer -> Operand
+constI8 i = ConstantOperand $ C.Int 8 i
+
 -- high level generations
 brainfuckEntry :: Codegen ()
 brainfuckEntry = addBlock "entry" $> ()
@@ -237,6 +240,20 @@ brainfuckExpr PosDecr = do
     i  <- load pointer
     i' <- sub i (constI32 1)
     store pointer i'
+
+brainfuckExpr DataIncr = do
+    i   <- load pointer
+    p_d <- getArrayElement tape i
+    d   <- load p_d
+    d'  <- add d (constI8 1)
+    store p_d d'
+
+brainfuckExpr DataDecr = do
+    i   <- load pointer
+    p_d <- getArrayElement tape i
+    d   <- load p_d
+    d'  <- sub d (constI8 1)
+    store p_d d'
 
 -- LLVM Operations
 

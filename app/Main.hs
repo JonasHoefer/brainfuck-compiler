@@ -2,16 +2,17 @@
 
 module Main where
 
-import           Parser
-import           Interpreter
-
 import           Control.Monad.Trans
 import           System.Console.Haskeline
+import           LLVM.AST
 
+import           Parser
+import           Interpreter
 import           Emit
 import           Codegen
 
 
+process :: String -> IO LLVM.AST.Module
 process prog =
   let Just (ast, _) = runParser program prog
   in  print (show ast)

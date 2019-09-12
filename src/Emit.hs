@@ -14,7 +14,8 @@ import qualified LLVM.AST.FloatingPointPredicate
 
 import           Data.Word
 import           Data.Int
-import qualified Data.ByteString.Char8         as B
+import           Data.ByteString               as B
+import           Data.ByteString.Internal      as B
 import qualified Data.Map                      as Map
 
 import           Control.Monad.Except
@@ -47,4 +48,5 @@ codegen mod exprs =
 
 printAst :: AST.Module -> IO ()
 printAst ast = withContext $ \context ->
-    withModuleFromAST context ast moduleLLVMAssembly >>= B.putStrLn
+    withModuleFromAST context ast moduleLLVMAssembly
+        >>= \code -> B.writeFile "out.ll" code
