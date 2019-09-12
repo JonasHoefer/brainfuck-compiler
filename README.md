@@ -13,4 +13,4 @@ Currently done features:
 - [ ] cli
 
 ## Usage
-Use `cat hw.bf | stack run && lli out.ll` to compile and execute an bf file.
+Use `cat hw.bf | stack run && lli out.ll` and press `enter` to compile and execute a bf file.
