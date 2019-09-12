@@ -68,15 +68,15 @@ external retTypes label argTypes =
         }
 
 codegenGetCharRef :: LLVM ()
-codegenGetCharRef = external T.i32 "getchar" []
+codegenGetCharRef = external T.i8 "getchar" []
 
 codegenPutCharRef :: LLVM ()
-codegenPutCharRef = external T.i32 "putchar" [(T.i32, "c")]
+codegenPutCharRef = external T.i32 "putchar" [(T.i8, "c")]
 
 codegenTape :: LLVM ()
 codegenTape = addDefn $ GlobalDefinition $ globalVariableDefaults
     { name                  = Name "tape"
-    , LLVM.AST.Global.type' = T.ArrayType 512 T.i32
+    , LLVM.AST.Global.type' = T.ArrayType 512 T.i8
     }
 
 codegenPointer :: LLVM ()
@@ -154,42 +154,54 @@ terminator trm =
     in  (putTerm <$> current >>= modifyBlock) $> trm
 
 -- creates a new name for an unnamed instruction
-fresh :: Codegen Word
-fresh = modify (\s -> s { count = 1 + count s }) >> gets count
+freshName :: Codegen Name
+freshName = UnName <$> incrCount
+    where incrCount = modify (\s -> s { count = count s + 1 }) >> gets count
+
+-- instructions/statements
+addInstruction :: Instruction -> Type -> Codegen Operand
+addInstruction ins t =
+    -- adds instruction with given return type to list of instructions and returns a local reference to it's return type 
+    let insert blk ref = modifyBlock (blk { stack = (ref := ins) : stack blk })
+        addInstr blk ref = insert blk ref $> LocalReference t ref
+    in  join (addInstr <$> current <*> freshName)
+
+addStatement :: Instruction -> Codegen ()
+addStatement ins =
+    let addStatement blk = modifyBlock (blk { stack = Do ins : stack blk })
+    in  current >>= addStatement
+
+--------------------------------
 
 externf :: Type -> Name -> Operand
 externf t n = ConstantOperand $ C.GlobalReference t n
 
--- instructions/statements
-instr :: Instruction -> Type -> Codegen Operand
-instr ins t =
-    let addInstr blk ref =
-                modifyBlock (blk { stack = (ref := ins) : stack blk })
-        ref = UnName <$> fresh
-    in  join (addInstr <$> current <*> ref) >> (LocalReference t <$> ref)
-
-statem :: Instruction -> Codegen ()
-statem ins =
-    let addStatement blk = modifyBlock (blk { stack = Do ins : stack blk })
-    in  current >>= addStatement
-
-------
-
 toArgs :: [Operand] -> [(Operand, [A.ParameterAttribute])]
 toArgs = map (, [])
 
-call :: Operand -> Type -> [Operand] -> Codegen Operand
-call fn t args = instr (Call Nothing CC.C [] (Right fn) (toArgs args) [] []) t
+----------------------------------
 
-store :: Operand -> Operand -> Codegen ()
-store ptr val = statem $ Store False ptr val Nothing 0 []
+-- Global Constants 
+tape :: Operand
+tape = externf (PointerType (ArrayType 512 T.i8) (AddrSpace 0)) "tape"
 
-load :: Operand -> Codegen Operand
-load ptr =
-    instr (Load False ptr Nothing 0 []) (T.getElementType . T.typeOf $ ptr)
+pointer :: Operand
+pointer = externf (PointerType T.i32 (AddrSpace 0)) "pointer"
 
+putCharFn :: Operand
+putCharFn = externf
+    (PointerType (FunctionType T.i32 [T.i8] False) (AddrSpace 0))
+    (Name "putchar")
 
--- generates the first basic block in a brainfuck program
+getCharFn :: Operand
+getCharFn = externf
+    (PointerType (FunctionType T.i8 [] False) (AddrSpace 0))
+    (Name "getchar")
+
+constI32 :: Integer -> Operand
+constI32 i = ConstantOperand $ C.Int 32 i
+
+-- high level generations
 brainfuckEntry :: Codegen ()
 brainfuckEntry = addBlock "entry" $> ()
 
@@ -199,14 +211,42 @@ brainfuckExit = terminator (Do $ Ret Nothing []) $> ()
 brainfuckExprs :: [Expr] -> Codegen ()
 brainfuckExprs = foldr ((>>) . brainfuckExpr) (return ())
 
-brainfuckExpr :: Expr -> Codegen Operand
-brainfuckExpr Write =
-    let fn = externf
-            (PointerType (FunctionType T.i32 [T.i32] False) (AddrSpace 0))
-            (Name "putchar")
-        callFn arg = call fn T.i32 [arg]
-    in  callFn readTape
+-- Expressions
+brainfuckExpr :: Expr -> Codegen ()
+brainfuckExpr Write = readTape >>= putChar
+    where putChar c = call putCharFn T.i32 [c] $> ()
 
-readTape :: Operand
-readTape = ConstantOperand $ C.Int 32 69
+brainfuckExpr Read = getChar >>= writeTape
+    where getChar = call getCharFn T.i8 []
 
+brainfuckExpr PosIncr = join (add <$> load pointer <*> pure (constI32 1)) $> ()
+
+
+-- LLVM Operations
+
+call :: Operand -> Type -> [Operand] -> Codegen Operand
+call fn t args =
+    addInstruction (Call Nothing CC.C [] (Right fn) (toArgs args) [] []) t
+
+store :: Operand -> Operand -> Codegen ()
+store ptr val = addStatement $ Store False ptr val Nothing 0 []
+
+load :: Operand -> Codegen Operand
+load ptr = addInstruction (Load False ptr Nothing 0 []) retType
+    where retType = T.getElementType . T.typeOf $ ptr
+
+add :: Operand -> Operand -> Codegen Operand
+add l r = addInstruction (Add False False l r []) T.i8
+
+getArrayElement :: Operand -> Operand -> Codegen Operand
+getArrayElement add ind = addInstruction instr retType
+  where
+    instr   = GetElementPtr False add [constI32 0, ind] []
+    retType = PointerType T.i8 (AddrSpace 0)
+
+readTape :: Codegen Operand
+readTape = load pointer >>= getArrayElement tape >>= load
+
+writeTape :: Operand -> Codegen ()
+writeTape val = join (store <$> pure val <*> elem)
+    where elem = load pointer >>= getArrayElement tape
